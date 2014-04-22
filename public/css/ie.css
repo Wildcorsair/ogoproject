@@ -1,0 +1,21 @@
+
+li { 
+	display: inline-table;
+}
+
+#footer-menu li {
+	background: url("../images/separator.png") no-repeat center right;
+}
+
+#footer-menu li.last-element {
+	background: none;
+}
+
+/*#page-counter-wrapper li {
+	width: 25px;
+	padding-left: 1px; 
+}*/
+
+#page-counter-wrapper li a{
+	font-family: Verdana, sans-serif;
+}
