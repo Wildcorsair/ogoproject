@@ -1,0 +1,39 @@
+<?php 
+
+class BController {
+	public $user;
+	public $model;
+	public $content;
+	public $controllerClassName;
+	public $tamplate;
+	
+	public function __construct () {
+		/*
+		 * Определяем имя класса, для того чтобы подключать
+		 * "Виды" и "Модели" соответсвенно контроллеру
+		*/ 
+		$this->controllerClassName = get_class($this);
+		$modelClassName = $this->controllerClassName."Model";
+		include(ROOT."/apps/models/".$modelClassName.".class.php");
+		$this->model = new $modelClassName();
+	}
+
+	public function render($tamplateName = "index", $nested = false, $common = false) {
+		$this->tamplate = $tamplateName;
+		if ($nested) {
+			if ($common) {
+				$fullPath = ROOT."/apps/views/common".
+						"/".$tamplateName.".php";
+			} else {
+				$fullPath = ROOT."/apps/views/".
+						strtolower($this->controllerClassName).
+						"/".$tamplateName.".php";
+			}
+		} else {
+			$fullPath = ROOT."/public/index.php";
+		}
+		include_once($fullPath);
+	}
+}
+
+?>
