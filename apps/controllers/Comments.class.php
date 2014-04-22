@@ -11,7 +11,6 @@ class Comments extends BController {
 	}
 
 	public function delete($commentId) {
-		//echo $commentId;
 		$this->model->delete($commentId);
 	}
 }

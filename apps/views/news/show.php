@@ -72,7 +72,6 @@
 					}
 				} ?>
 	</div>
-	<!--<div class="clear"></div>-->
 <?php		} else {?>
 				<div class="content-item-block no-bottom-border">
 					<?php header("Location: /error/message/15"); exit;//echo "Ошибка: Нет такой новости!"; ?>
