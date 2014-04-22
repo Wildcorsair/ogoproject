@@ -340,7 +340,6 @@ class DataAccess {
 	public function updateById($id) {
 		$id = intval($id);
 		if (is_numeric($id)) {
-			//$id = $this->db->real_escape_string(strip_tags(trim($id)));
 			$fieldsListString = "";
 			$fieldsList = $this->prepareParams('UPDATE');
 			if (is_array($fieldsList)) {
