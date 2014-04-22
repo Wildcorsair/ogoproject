@@ -52,9 +52,7 @@ class CommentsModel extends BDatabase {
 				$this->ftext = $editComment;
 				$this->updateById($commentId);
 				header("Location: /news/show/".$_POST['newsId']);
-				exit;				
-				//header("Location: /".$_COOKIE['currRoute']);
-				//exit;
+				exit;
 			} else {
 				header("Location: /error/message/16");
 				exit;
