@@ -67,8 +67,14 @@ class CommentsModel extends BDatabase {
 		$user = $this->isAuthorized();
 		if (!empty($user->fid)) {
 			$result = $this->deleteByParams("`fid` = :i AND `fauthor_id` = :i", array($commentId, $user->fid));
-			header("Location: /".$_COOKIE['currRoute']);
-			exit;
+			//header("Location: /".$_COOKIE['currRoute']);
+			if (isset($_POST['newsId']) && is_numeric($_POST['newsId'])) {
+				header("Location: /news/show/".$_POST['newsId']);
+				exit;
+			} else {
+				header("Location: /error/message/15");
+				exit;
+			}
 		} else {
 			header("Location: /error/message/14");
 			exit;

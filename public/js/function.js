@@ -61,31 +61,26 @@ $(document).ready(function() {
 		}
 	});
 
-	/*$("a.delete-btn").click(function(e) {
-		var answer = confirm("Удалить комментарий?");
-		if (answer == false) {
-			e.preventDefault();
-		}
-	});*/
-
 	$('.delete-btn').click(function() {
 		var w = $(window).width();
 		var offset = $(this).offset();
 		var posW = (w / 2) - 130;
 		var posH = offset.top - 75;
+		var newsId = $("input[name='newsId']").val();
 		var commId = $(this).val();
-		$('body').append("<div class='dialog'>"+
-							"<div class='dialog-title'>Удаление</div>"+
-							"<div class='dialog-text'>"+
-								"Удалить комментарий?"+
-							"</div>"+
-							"<div class='dialog-buttons'>"+
-								"<form action='/comments/delete/"+commId+"' method='POST'>"+
-									"<button>Да</button>"+
-									"<button class='last' onclick='hideDialog(); return false;'>Нет</button>"+
-								"</form>"+
-							"</div>"+
-						"</div>");
+		$('body').append("<div class='dialog'>\
+							<div class='dialog-title'>Удаление</div>\
+							<div class='dialog-text'>\
+								Удалить комментарий?\
+							</div>\
+							<div class='dialog-buttons'>\
+								<form action='/comments/delete/"+commId+"' method='POST'>\
+									<input type='hidden' name='newsId' value='"+newsId+"'>\
+									<button>Да</button>\
+									<button class='last' onclick='hideDialog(); return false;'>Нет</button>\
+								</form>\
+							</div>\
+						</div>");
 		$(".dialog").offset({top: posH, left: posW});
 		return false;
 	});

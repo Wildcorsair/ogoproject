@@ -5,6 +5,7 @@
 	<div class="content-item-block">
 		<?php
 				foreach ($dataSet as $record) {
+					echo "<input type='hidden' name='newsId' value='{$record->fid}'>";
 					echo "<h3>{$record->ftitle}</h3>";
 					echo "<div class='article-info'>Автор: {$record->fname} | ".
 							date("d.m.Y", strtotime($record->fcreate_date))."</div>";

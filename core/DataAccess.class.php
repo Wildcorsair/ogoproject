@@ -303,7 +303,6 @@ class DataAccess {
 		if ($limit != null) {
 			$query .= " LIMIT ".$limit;
 		}
-		echo $query;
 		return $this->openSQL($query);
 	}
 
