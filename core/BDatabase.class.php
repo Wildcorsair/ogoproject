@@ -21,7 +21,7 @@
 		}*/
 
 		public function __construct() {
-			parent::__construct("localhost", "root", "k13ju357", "ogoBase");
+			parent::__construct("localhost", "root", "", "ogoBase");
 		}
 
 		public function dateConvert($dateString) {
