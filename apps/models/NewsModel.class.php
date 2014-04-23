@@ -33,6 +33,7 @@ class NewsModel extends BDatabase {
 					LEFT JOIN `ogo_users` ON `ogo_news`.`fauthor_id`=`ogo_users`.`fid`
 					LEFT JOIN `ogo_comments` ON `ogo_news`.`fid`=`ogo_comments`.`fnews_id`
 					GROUP BY `ogo_news`.`fid`
+					ORDER BY `ogo_news`.`fcreate_date` DESC
 					LIMIT :i, :i";
 			$c = array($offset, $this->newsPerPage);
 			$data = $this->selectBySql($q, $c);
@@ -60,7 +61,6 @@ class NewsModel extends BDatabase {
 				LIMIT 0, 1";
 			$c = array($newsId);
 			$data = $this->selectBySql($q, $c);
-			//var_dump($data);
 		}
 		return $data;
 	}

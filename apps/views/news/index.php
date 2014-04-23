@@ -14,9 +14,9 @@
 						<p class="year"><?php echo $convDate[0]; ?></p>
 					</div>
 					<div class="text-block">
-						<h3><?php echo $record->ftitle; ?></h3>
-						<p class="posted">Разместил: <?php echo $record->fname." | Комментариев: ".$record->fcomments_count; ?></p>
-						<?php echo $record->fsummary_text; ?>&nbsp;
+						<h3><?php echo htmlspecialchars($record->ftitle); ?></h3>
+						<p class="posted">Разместил: <?php echo htmlspecialchars($record->fname)." | Комментариев: ".$record->fcomments_count; ?></p>
+						<?php echo htmlspecialchars($record->fsummary_text); ?>&nbsp;
 						<a href="/news/show/<?php echo $record->fid; ?>">Читать далее...</a>
 					</div>
 				</div>

@@ -6,10 +6,10 @@
 		<?php
 				foreach ($dataSet as $record) {
 					echo "<input type='hidden' name='newsId' value='{$record->fid}'>";
-					echo "<h3>{$record->ftitle}</h3>";
-					echo "<div class='article-info'>Автор: {$record->fname} | ".
+					echo "<h3>".htmlspecialchars($record->ftitle)."</h3>";
+					echo "<div class='article-info'>Автор: ".htmlspecialchars($record->fname)." | ".
 							date("d.m.Y", strtotime($record->fcreate_date))."</div>";
-					echo "<p>{$record->fnews_text}</p>";
+					echo "<p>".htmlspecialchars($record->fnews_text)."</p>";
 		?>
 		<table>
 			<tbody>
@@ -34,7 +34,7 @@
 				foreach ($dataSet as $comment) { ?>
 
 		<div class="comment-item-block">
-			<div class="comment-author"><?php echo $comment->fname; ?></div>
+			<div class="comment-author"><?php echo htmlspecialchars($comment->fname); ?></div>
 			<div class="comment-datetime">
 				<?php echo date("d.m.Y | H:i:s", strtotime($comment->fcreate_date)); ?>
 			</div>
@@ -50,7 +50,7 @@
 					}
 				?>
 			<div class="clear"></div>
-			<div class="comment-text"><?php echo $comment->ftext; ?></div>	
+			<div class="comment-text"><?php echo htmlspecialchars($comment->ftext); ?></div>	
 		</div>
 		<?php
 				}
