@@ -634,6 +634,27 @@ div.clear-margin-right {
 /*These are styles for other pages*/
 /*================================*/
 
+div.article-date-ico {
+	height: 24px;
+	width: 24px;
+	float: left;
+	background: url("../images/icons_sprite.png") no-repeat;
+	background-position: -144px 0;
+}
+
+div.material-info {
+	height: 45px;
+	width: 580px;
+	font-family: Tahoma, Arial, Verdana, sans-serif;
+	font-size: 1em;
+	margin-top: 12px;
+}
+
+div.material-info span {
+	/*display: block;*/
+	margin-top: 5px;
+}
+
 span.user-name {
 	color: #f34a53; /*#aac789;*/
 	margin-right: 15px;
