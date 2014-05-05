@@ -634,14 +634,6 @@ div.clear-margin-right {
 /*These are styles for other pages*/
 /*================================*/
 
-div.article-date-ico {
-	height: 24px;
-	width: 24px;
-	float: left;
-	background: url("../images/icons_sprite.png") no-repeat;
-	background-position: -144px 0;
-}
-
 div.material-info {
 	height: 45px;
 	width: 580px;
@@ -651,8 +643,33 @@ div.material-info {
 }
 
 div.material-info span {
-	/*display: block;*/
-	margin-top: 5px;
+	margin-left: 10px;
+	color: #6d6e71;
+}
+
+div.material-info table {
+	float: left;
+}
+
+div.material-info table td{
+	font-family: Verdana, Arial, Tahoma, sans-serif;
+	font-size: 0.9em;
+	color: #aac789;
+	padding-right: 2px;
+}
+
+div.article-date-ico {
+	height: 24px;
+	width: 24px;
+	float: left;
+	background: url("../images/icons_sprite.png") no-repeat;
+	background-position: -144px 0;
+}
+
+div.article-preview-image {
+	width: 460px;
+	height: 80px;
+	background: url("../images/article_img01.jpg") no-repeat;
 }
 
 span.user-name {
