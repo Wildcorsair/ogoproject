@@ -674,7 +674,7 @@ div.article-preview-image {
 }
 
 div.article-preview-text {
-	margin-top: 20px;
+	margin-top: 25px;
 	width: 580px;
 	color: #000;
 }
@@ -770,7 +770,6 @@ div#comments-block {
 div#comments-block p {
 	font-family: Arial, Tahoma, Helvetica, sans-serif;
 	font-size: 1.15em;
-	font-weight: bold;
 	margin-top: 40px;
 }
 
