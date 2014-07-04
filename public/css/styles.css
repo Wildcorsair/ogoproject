@@ -229,6 +229,7 @@ span#registration-href {
 	color: #437356;
 	width: 580px;
 	padding: 50px 0;
+	font-family: Verdana, Arial, Tahoma, sans-serif;
 	border-bottom: solid 1px #bebebe;
 }
 
@@ -341,8 +342,7 @@ div.reg-email-input-wrapper {
 	width: 440px;
 	margin-left: 120px;
 	color: #000;
-	font-size: 0.85em;
-	font-family: Verdana, sans-serif;
+	/*font-family: Verdana, Arial, Tahoma, sans-serif;*/
 }
 
 .text-block h3 {
@@ -352,14 +352,14 @@ div.reg-email-input-wrapper {
 	font-size: 1.45em;
 }
 
-.text-block a {
+/*.text-block a {
 	color: #f64e57;
 	font-style: italic;
 }
 
 .text-block a:hover {
 	color: #e02c36;
-}
+}*/
 
 #page-counter-wrapper {
 	width: 341px;
@@ -676,8 +676,6 @@ div.article-preview-image {
 div.article-preview-text {
 	margin-top: 20px;
 	width: 580px;
-	font-family: Verdana, Arial, Tahoma, sans-serif;
-	font-size: 0.9em;
 	color: #000;
 }
 
@@ -690,6 +688,16 @@ span.user-name {
 	color: #437356;
 	font-size: 1.45em;
 	font-family: Arial, Tahoma, Helvetica, sans-serif;
+}
+
+div.content-item-block a {
+	color: #f64e57;
+	font-style: italic;
+	font-size: 0.95em;
+}
+
+div.content-item-block a:hover {
+	color: #e02c36;
 }
 
 .article-info {
