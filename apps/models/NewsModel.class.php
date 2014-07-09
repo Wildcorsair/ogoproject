@@ -32,6 +32,7 @@ class NewsModel extends BDatabase {
 					FROM `ogo_news`
 					LEFT JOIN `ogo_users` ON `ogo_news`.`fauthor_id`=`ogo_users`.`fid`
 					LEFT JOIN `ogo_comments` ON `ogo_news`.`fid`=`ogo_comments`.`fnews_id`
+					WHERE `ogo_news`.`fcategory` = 1
 					GROUP BY `ogo_news`.`fid`
 					ORDER BY `ogo_news`.`fcreate_date` DESC
 					LIMIT :i, :i";
@@ -78,7 +79,7 @@ class NewsModel extends BDatabase {
 	*/
 	public function getPageCount() {
 		$pageCount = 1;
-		$recordsCount = $this->recordsCount();
+		$recordsCount = $this->recordsCount(1); //Считаем к-ство записей, соответсвенно категории
 		if ($recordsCount > 0) {
 			$pageCount = ceil($recordsCount / $this->newsPerPage);
 		}
