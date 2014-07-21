@@ -13,8 +13,8 @@
 			$this->render("index");
 		}
 
-		public function read($param) {
-			$this->render("read");
+		public function show($param) {
+			$this->render("show");
 		}
 
 	}

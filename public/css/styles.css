@@ -11,7 +11,7 @@
 html, body {
 	width: 100%;
 	height: 100%;
-	font: 100% Arial, Verdana, sans-serif;
+	font: 100% Verdana, Arial, Verdana, sans-serif;
 	background-color: #eee;
 }
 
@@ -229,7 +229,7 @@ span#registration-href {
 	color: #437356;
 	width: 580px;
 	padding: 50px 0;
-	font-family: Verdana, Arial, Tahoma, sans-serif;
+	font-family: Arial, Tahoma, Helvetica, sans-serif;
 	border-bottom: solid 1px #bebebe;
 }
 
