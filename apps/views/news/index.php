@@ -26,7 +26,7 @@
 	<div id="page-counter-wrapper">
 		<ul>
 			<?php
-				echo $this->model->pageNavigation($this->currentPage);
+				echo $this->model->pageNavigation($this->currentPage, $this->model->category);
 			?>
 		</ul>
 	</div>

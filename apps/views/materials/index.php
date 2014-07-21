@@ -11,19 +11,22 @@
 				<tbody>
 					<tr>
 						<td><div class="article-date-ico"></div></td>
-						<td><?php echo $record->fcreate_date; ?></td>
-						<td><span class="">Разместил: </span></td>
-						<td>Администратор</td>
+						<td>
+							<?php 
+								$convDate = array();
+								$convDate = $this->model->dateConvert($record->fcreate_date);
+								echo $convDate[2]."&nbsp".$convDate[1]."&nbsp".$convDate[0];
+							?>
+						</td>
+						<td><span class="">Разместил(а): </span></td>
+						<td><?php echo htmlspecialchars($record->fname); ?></td>
 					</tr>	
 				</tbody>
 			</table>
 		</div>
 		<div class="article-preview-image"></div>
 		<div class="article-preview-text">
-			На официальном форуме игры Operation Flashpoint: Dragon Rising
-			опубликовали системные требования требуемые для запуска игры
-			на ПК. Если к видеокарте игра не требовательна, то процессор
-			потребуется не слабый.
+			<?php echo htmlspecialchars($record->fsummary_text); ?>
 			<a href="/materials/show/<?php echo $record->fid; ?>">Читать далее...</a>
 		</div>	
 	</div>
@@ -34,12 +37,8 @@
 	<div id="page-counter-wrapper">
 		<ul>
 			<?php
-				//Навигация!
+				echo $this->model->pageNavigation($this->currentPage, $this->model->category);
 			?>
-			<li><a href='#' class='curr-page'>1</a></li>
-			<li><a href='#'>2</a></li>
-			<li><a href='#'>3</a></li>
-			<li><a href='#'>4</a></li>
 		</ul>
 	</div>
 </div>
