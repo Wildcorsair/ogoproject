@@ -6,6 +6,7 @@ class NewsModel extends BDatabase {
 	public $primaryKey = "fid";
 	public $newsPerPage = 3;
 	public $commentsObject;
+	public $category = "news";
 	
 	public function __construct() {
 		parent::__construct();
@@ -18,7 +19,7 @@ class NewsModel extends BDatabase {
 			$offset = 0;
 			$pageCount = $this->getPageCount();
 			if ($currentPage <= 0 or $currentPage > $pageCount or !is_numeric($currentPage)) {
-				throw new Exception ("Error 404!");
+				throw new Exception ("Error 404! Нет накой страницы!");
 			}
 			$offset = ($currentPage - 1) * $this->newsPerPage;
 			$data = null;
@@ -32,6 +33,7 @@ class NewsModel extends BDatabase {
 					FROM `ogo_news`
 					LEFT JOIN `ogo_users` ON `ogo_news`.`fauthor_id`=`ogo_users`.`fid`
 					LEFT JOIN `ogo_comments` ON `ogo_news`.`fid`=`ogo_comments`.`fnews_id`
+					WHERE `ogo_news`.`fcategory` = 1
 					GROUP BY `ogo_news`.`fid`
 					ORDER BY `ogo_news`.`fcreate_date` DESC
 					LIMIT :i, :i";
@@ -78,14 +80,14 @@ class NewsModel extends BDatabase {
 	*/
 	public function getPageCount() {
 		$pageCount = 1;
-		$recordsCount = $this->recordsCount();
+		$recordsCount = $this->recordsCount(1); //Считаем к-ство записей, соответсвенно категории
 		if ($recordsCount > 0) {
 			$pageCount = ceil($recordsCount / $this->newsPerPage);
 		}
 		return $pageCount;
 	}
 
-	public function pageNavigation($currentPage, $linkCount=5) {
+/*	public function pageNavigation($currentPage, $linkCount=5) {
 		$pageStr = null;
 		$pageCount = $this->getPageCount();
 		if (!isset($currentPage) && !is_numeric($currentPage)) {
@@ -114,7 +116,7 @@ class NewsModel extends BDatabase {
 					чтобы не вставлялось многоточие между предпоследней и последней ссылкой
 					вот так: 1 2 3 4 5 ... 6
 				*/
-				if ($pageCount == ($linkCount + 1)) {
+/*				if ($pageCount == ($linkCount + 1)) {
 					for ($pageNum = $leftOffset; $pageNum <= $linkCount + 1; $pageNum++) {
 						$this->linkageNavString($pageStr, $pageNum, $currentPage);
 					}
@@ -132,7 +134,7 @@ class NewsModel extends BDatabase {
 					ссылки начинаюся с 1-й страницы, то выводим строку ссылок без много точий,
 					чтобы не было вот так 1 ... 2 3 4 5 6 
 				*/
-				if ($leftOffset == 1) {
+/*				if ($leftOffset == 1) {
 					for ($pageNum = $leftOffset; $pageNum <= $linkCount + 1; $pageNum++) {
 						$this->linkageNavString($pageStr, $pageNum, $currentPage);
 					}
@@ -164,6 +166,6 @@ class NewsModel extends BDatabase {
 		} else {
 			$linkStr .= "<li><a href='/news/index/{$pageNum}'>{$pageNum}</a></li>\n";
 		}
-	}
+	}*/
 }
 ?>

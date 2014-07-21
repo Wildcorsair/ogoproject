@@ -213,9 +213,11 @@ class DataAccess {
 			echo "Предупреждение: Пустая строка запроса!\n";
 	}
 
-	public function recordsCount() {
+	public function recordsCount($category) {
 		$count = 0;
-		$query = "SELECT COUNT(`{$this->primaryKey}`) AS `count` FROM `{$this->tableName}` LIMIT 0, 1";
+		$query = "SELECT COUNT(`{$this->primaryKey}`) AS `count` FROM `{$this->tableName}`
+					WHERE `{$this->tableName}`.`fcategory` = {$category}
+					LIMIT 0, 1";
 		$this->setQueryString($query);
 		$result = $this->db->query($query) or die("Database Error: ".$this->db->error);
 			if ($result->num_rows > 0) {

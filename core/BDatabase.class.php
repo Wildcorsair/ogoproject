@@ -73,5 +73,95 @@
 				return $userData;
 			}
 		}
-}
+
+/*		public function getPageCount() {
+			$pageCount = 1;
+			$recordsCount = $this->recordsCount(2); //Считаем к-ство записей, соответсвенно категории
+			if ($recordsCount > 0) {
+				$pageCount = ceil($recordsCount / $this->articlesPerPage);
+			}
+			return $pageCount;
+		}
+*/
+		public function pageNavigation($currentPage, $category, $linkCount=5) {
+			$pageStr = null;
+			$pageCount = $this->getPageCount();
+			if (!isset($currentPage) && !is_numeric($currentPage)) {
+				$currentPage = 1;
+			}
+		
+			if ($currentPage <= 0) {
+				$currentPage = 1;
+			} elseif ($currentPage > $pageCount) {
+				$currentPage = $pageCount;
+			}
+	
+			if ($pageCount <= $linkCount) {
+				for ($pageNum = 1; $pageNum <= $pageCount; $pageNum++) { 
+					$this->linkageNavString($pageStr, $pageNum, $currentPage, $category);
+				}
+			} else {
+				$leftOffset = $currentPage - 2;
+				$rightOffset = $currentPage + 2;
+	
+				if ($leftOffset <= 2) {
+					$leftOffset = 1;
+					/*
+						Если количество страниц будет всего на 1-ну больше чем значение в
+						$linkCount, то добавляем еще одну ссылку на страницу, для того 
+						чтобы не вставлялось многоточие между предпоследней и последней ссылкой
+						вот так: 1 2 3 4 5 ... 6
+					*/
+					if ($pageCount == ($linkCount + 1)) {
+						for ($pageNum = $leftOffset; $pageNum <= $linkCount + 1; $pageNum++) {
+							$this->linkageNavString($pageStr, $pageNum, $currentPage, $category);
+						}
+					} else {
+						for ($pageNum = $leftOffset; $pageNum <= $linkCount; $pageNum++) {
+							$this->linkageNavString($pageStr, $pageNum, $currentPage, $category);
+						}
+						$pageStr .=	"<li><span>...</span></li>";
+						$pageStr .=	"<li><a href='/".$category."/index/{$pageCount}'>{$pageCount}</a></li>";
+					}
+				} else if ($rightOffset >= $pageCount - 1) {
+					$leftOffset = $pageCount - $linkCount;
+					/*
+						Тоже что и выше, если правый сдвиг вышел за диапазон страниц, но при этом
+						ссылки начинаюся с 1-й страницы, то выводим строку ссылок без много точий,
+						чтобы не было вот так 1 ... 2 3 4 5 6 
+					*/
+				if ($leftOffset == 1) {
+						for ($pageNum = $leftOffset; $pageNum <= $linkCount + 1; $pageNum++) {
+							$this->linkageNavString($pageStr, $pageNum, $currentPage, $category);
+						}
+					} else {
+						$pageStr .= "<li><a href='/".$category."/index/1'>1</a></li>";
+						$pageStr .= "<li><span>...</span></li>";
+						$leftOffset++;
+						for ($pageNum = $leftOffset; $pageNum <= $pageCount; $pageNum++) {
+							$this->linkageNavString($pageStr, $pageNum, $currentPage, $category);
+						}
+					}
+	
+				} else {
+					$pageStr .= "<li><a href='/".$category."/index/1'>1</a></li>";
+					$pageStr .= "<li><span>...</span></li>";
+					for ($pageNum = $leftOffset; $pageNum <= $rightOffset; $pageNum++) {
+						$this->linkageNavString($pageStr, $pageNum, $currentPage, $category);
+					}
+					$pageStr .=	"<li><span>...</span></li>";
+					$pageStr .=	"<li><a href='/".$category."/index/{$pageCount}'>{$pageCount}</a></li>";
+				}
+			}
+			return $pageStr;
+		}
+
+		private function linkageNavString(&$linkStr, $pageNum, $currentPage, $category) {
+			if ($pageNum == $currentPage) {
+				$linkStr .= "<li><a href='/".$category."/index/{$pageNum}' class='curr-page'>{$pageNum}</a></li>\n";	
+			} else {
+				$linkStr .= "<li><a href='/".$category."/index/{$pageNum}'>{$pageNum}</a></li>\n";
+			}
+		}
+	} //Class end
 ?>

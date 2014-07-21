@@ -9,7 +9,7 @@
 					echo "<h3>".htmlspecialchars($record->ftitle)."</h3>";
 					echo "<div class='article-info'>Автор: ".htmlspecialchars($record->fname)." | ".
 							date("d.m.Y", strtotime($record->fcreate_date))."</div>";
-					echo "<p>".htmlspecialchars($record->fnews_text)."</p>";
+					echo "<p>".$record->fnews_text."</p>";
 		?>
 		<table>
 			<tbody>
