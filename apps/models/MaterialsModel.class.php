@@ -1,4 +1,5 @@
 <?php
+require_once("CommentsModel.class.php");
 
 	class MaterialsModel extends BDatabase{
 		public $tableName = "ogo_news";
@@ -6,6 +7,12 @@
 		public $articlesPerPage = 3;
 		public $commentsObject;
 		public $category = "materials";
+
+		public function __construct() {
+			parent::__construct();
+			$this->commentsObject = new CommentsModel();
+	
+		}
 
 		public function getArticlesList($currentPage) {
 			try {
@@ -48,87 +55,27 @@
 			}
 			return $pageCount;
 		}
-	
-	
-/*		public function pageNavigation($currentPage, $linkCount=5) {
-		$pageStr = null;
-		$pageCount = $this->getPageCount();
-		if (!isset($currentPage) && !is_numeric($currentPage)) {
-			$currentPage = 1;
-		}
-		
-		if ($currentPage <= 0) {
-			$currentPage = 1;
-		} elseif ($currentPage > $pageCount) {
-			$currentPage = $pageCount;
-		}
 
-		if ($pageCount <= $linkCount) {
-			for ($pageNum = 1; $pageNum <= $pageCount; $pageNum++) { 
-				$this->linkageNavString($pageStr, $pageNum, $currentPage);
+		public function getFullArticle($articleId) {
+			$data = null;
+			if (!is_null($articleId) && is_numeric($articleId)) {
+				$q = "SELECT `ogo_news`.`fid`,
+							`ogo_news`.`ftitle`,
+							`ogo_news`.`fcreate_date`,
+							`ogo_news`.`fnews_text`,
+							`ogo_users`.`fname`,
+							`ogo_news`.`fview_count`,
+							COUNT(`ogo_comments`.`fid`) AS `fcomments_count`
+					FROM `ogo_news`
+					LEFT JOIN `ogo_users` ON `ogo_news`.`fauthor_id`=`ogo_users`.`fid`
+					LEFT JOIN `ogo_comments` ON `ogo_news`.`fid`=`ogo_comments`.`fnews_id`
+					WHERE `ogo_news`.`fid` = :i
+					LIMIT 0, 1";
+				$c = array($articleId);
+				$data = $this->selectBySql($q, $c);
 			}
-		} else {
-			$leftOffset = $currentPage - 2;
-			$rightOffset = $currentPage + 2;
-
-			if ($leftOffset <= 2) {
-				$leftOffset = 1;
-				/*
-					Если количество страниц будет всего на 1-ну больше чем значение в
-					$linkCount, то добавляем еще одну ссылку на страницу, для того 
-					чтобы не вставлялось многоточие между предпоследней и последней ссылкой
-					вот так: 1 2 3 4 5 ... 6
-				*/
-/*				if ($pageCount == ($linkCount + 1)) {
-					for ($pageNum = $leftOffset; $pageNum <= $linkCount + 1; $pageNum++) {
-						$this->linkageNavString($pageStr, $pageNum, $currentPage);
-					}
-				} else {
-					for ($pageNum = $leftOffset; $pageNum <= $linkCount; $pageNum++) {
-						$this->linkageNavString($pageStr, $pageNum, $currentPage);
-					}
-					$pageStr .=	"<li><span>...</span></li>";
-					$pageStr .=	"<li><a href='/materials/index/{$pageCount}'>{$pageCount}</a></li>";
-				}
-			} else if ($rightOffset >= $pageCount - 1) {
-				$leftOffset = $pageCount - $linkCount;
-				/*
-					Тоже что и выше, если правый сдвиг вышел за диапазон страниц, но при этом
-					ссылки начинаюся с 1-й страницы, то выводим строку ссылок без много точий,
-					чтобы не было вот так 1 ... 2 3 4 5 6 
-				*/
-/*				if ($leftOffset == 1) {
-					for ($pageNum = $leftOffset; $pageNum <= $linkCount + 1; $pageNum++) {
-						$this->linkageNavString($pageStr, $pageNum, $currentPage);
-					}
-				} else {
-					$pageStr .= "<li><a href='/materials/index/1'>1</a></li>";
-					$pageStr .= "<li><span>...</span></li>";
-					$leftOffset++;
-					for ($pageNum = $leftOffset; $pageNum <= $pageCount; $pageNum++) {
-						$this->linkageNavString($pageStr, $pageNum, $currentPage);
-					}
-				}
-
-			} else {
-				$pageStr .= "<li><a href='/materials/index/1'>1</a></li>";
-				$pageStr .= "<li><span>...</span></li>";
-				for ($pageNum = $leftOffset; $pageNum <= $rightOffset; $pageNum++) {
-					$this->linkageNavString($pageStr, $pageNum, $currentPage);
-				}
-				$pageStr .=	"<li><span>...</span></li>";
-				$pageStr .=	"<li><a href='/materials/index/{$pageCount}'>{$pageCount}</a></li>";
-			}
+			return $data;
 		}
-		return $pageStr;
-	}
 
-	private function linkageNavString(&$linkStr, $pageNum, $currentPage) {
-		if ($pageNum == $currentPage) {
-			$linkStr .= "<li><a href='/materials/index/{$pageNum}' class='curr-page'>{$pageNum}</a></li>\n";	
-		} else {
-			$linkStr .= "<li><a href='/materials/index/{$pageNum}'>{$pageNum}</a></li>\n";
-		}
-	}*/
-	}
+	} //Class end
 ?>

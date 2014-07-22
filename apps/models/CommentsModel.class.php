@@ -22,7 +22,7 @@ class CommentsModel extends BDatabase {
 		return $data;
 	}
 
-	public function leave() {
+	public function leave($category) {
 		$user = $this->isAuthorized();
 		if (isset($user->fid) && !is_null($user->fid)) {
 			$commentText = strip_tags(trim($_POST['commentText']));
@@ -31,7 +31,7 @@ class CommentsModel extends BDatabase {
 				$this->fauthor_id = $user->fid;
 				$this->ftext = $commentText;
 				$this->insert();
-				header("Location: /news/show/".$_POST['newsId']);
+				header("Location: /".$category."/show/".$_POST['newsId']);
 				exit;
 			} else {
 				header("Location: /error/message/16");
@@ -51,7 +51,8 @@ class CommentsModel extends BDatabase {
 			if (!empty($editComment)) {
 				$this->ftext = $editComment;
 				$this->updateById($commentId);
-				header("Location: /news/show/".$_POST['newsId']);
+				$category = strip_tags(trim($_POST['category']));
+				header("Location: /".$category."/show/".$_POST['newsId']);
 				exit;
 			} else {
 				header("Location: /error/message/16");
@@ -67,9 +68,9 @@ class CommentsModel extends BDatabase {
 		$user = $this->isAuthorized();
 		if (!empty($user->fid)) {
 			$result = $this->deleteByParams("`fid` = :i AND `fauthor_id` = :i", array($commentId, $user->fid));
-			//header("Location: /".$_COOKIE['currRoute']);
 			if (isset($_POST['newsId']) && is_numeric($_POST['newsId'])) {
-				header("Location: /news/show/".$_POST['newsId']);
+				$category = strip_tags(trim($_POST['category']));
+				header("Location: /".$category."/show/".$_POST['newsId']);
 				exit;
 			} else {
 				header("Location: /error/message/15");

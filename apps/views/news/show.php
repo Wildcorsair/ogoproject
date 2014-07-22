@@ -1,7 +1,7 @@
 <div id="content-block">
 		<?php
 			$dataSet = $this->model->getFullNews($this->newsId);
-			if (!empty($dataSet) && !is_null($dataSet)) { ?>
+			if (!is_null($dataSet) && $dataSet[0]->fid != null) { ?>
 	<div class="content-item-block">
 		<?php
 				foreach ($dataSet as $record) {
@@ -42,8 +42,8 @@
 					if (isset($this->user->fid) && $comment->fauthor_id == $this->user->fid) { ?>
 						<div class="edit-panel">
 							<ul>
-								<li><button class="edit-btn" value='<?php echo $comment->fid; ?>'></button></li>
-								<li><button  class="delete-btn" value="<?php echo $comment->fid; ?>"></button></li>
+								<li><button class="edit-btn" value="<?php echo $comment->fid; ?>"></button></li>
+								<li><button class="delete-btn" value="<?php echo $comment->fid; ?>"></button></li>
 							</ul>
 						</div>
 				<?php
@@ -62,8 +62,9 @@
 			}
 					if (!empty($this->user->fid)  && !empty($this->user->fname)) { ?>
 						<p>Оставить комментарий:</p>
-						<form action="/comments/leave" method="POST">
+						<form action="/comments/leave/news" method="POST">
 							<input type="hidden" name="newsId" value="<?php echo $record->fid; ?>">
+							<input type="hidden" name="category" value="news">
 							<div class="textarea-wrapper">
 								<textarea name="commentText"></textarea>
 							</div>

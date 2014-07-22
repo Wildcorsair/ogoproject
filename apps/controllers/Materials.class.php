@@ -2,7 +2,7 @@
 
 	class Materials extends BController {
 		public $currentPage;
-		public $newsId;
+		public $articleId;
 
 		public function index($param) {
 			if (is_numeric($param)) {
@@ -14,6 +14,9 @@
 		}
 
 		public function show($param) {
+			if (is_numeric($param)) {
+				$this->articleId = $param;
+			}
 			$this->render("show");
 		}
 

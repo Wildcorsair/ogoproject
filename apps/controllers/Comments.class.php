@@ -2,8 +2,8 @@
 
 class Comments extends BController {
 
-	public function leave() {
-		$this->model->leave();
+	public function leave($category) {
+		$this->model->leave($category);
 	}
 
 	public function edit($commentId) {

@@ -17,7 +17,7 @@
 						<h3><?php echo htmlspecialchars($record->ftitle); ?></h3>
 						<p class="posted">Разместил: <?php echo htmlspecialchars($record->fname)." | Комментариев: ".$record->fcomments_count; ?></p>
 						<?php echo htmlspecialchars($record->fsummary_text); ?>&nbsp;
-						<a href="/news/show/<?php echo $record->fid; ?>">Читать далее...</a>
+						<a href="/news/show/<?php echo $record->fid; ?>">Читать&nbsp;далее...</a>
 					</div>
 				</div>
 				<?php

@@ -1,10 +1,12 @@
 <div class="block-content">
 	<ul>
 		<?php
-			$dataSet = $this->model->getPopNews();
+			$dataSet = $this->model->getPopLinks(1);
 			if (!empty($dataSet)) {
 				foreach ($dataSet as $record) {
-					echo "<li><a href='/news/show/{$record->fid}'>{$record->ftitle}</a></li>";
+					$title = htmlspecialchars($record->ftitle);
+					$id = intval($record->fid);
+					echo "<li><a href='/news/show/{$id}'>{$title}</a></li>";
 				}
 			}
 		?>

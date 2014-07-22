@@ -3,25 +3,9 @@
 
 	class BDatabase extends DataAccess {
 		public $uid;
-		/*public $db;
-		
-		public function __construct() {
-			$host 		= "localhost";
-			$user 		= "root";
-			$password 	= "k13ju357";
-			$dbName 	= "ogoBase";
-			
-			$this->db = new mysqli($host, $user, $password, $dbName) 
-					or die("Database error: ". connect_error);
-			$this->db->set_charset("UTF8");
-		}
-		
-		public function __destruct() {
-			$this->db->close();
-		}*/
 
 		public function __construct() {
-			parent::__construct("localhost", "root", "", "ogoBase");
+			parent::__construct("localhost", "root", "k13ju357", "ogoBase");
 		}
 
 		public function dateConvert($dateString) {
@@ -44,7 +28,7 @@
 			return $dateParts;
 		}
 
-		public function getPopNews() {
+		public function getPopLinks($categoryId) {
 			$data = null;
 			$q = "SELECT 
 					`ogo_news`.`fid`,
@@ -52,10 +36,12 @@
 					COUNT(`ogo_comments`.`fid`) AS `fcom_count` 
 				FROM `ogo_news`
 				LEFT JOIN `ogo_comments` ON `ogo_news`.`fid` = `ogo_comments`.`fnews_id`
+				WHERE `ogo_news`.`fcategory` = :i
 				GROUP BY `ogo_news`.`fid`
 				ORDER BY `fcom_count` DESC
 				LIMIT 0, 3";
-			$data = $this->selectBySql($q);
+			$c = array($categoryId);
+			$data = $this->selectBySql($q, $c);
 			return $data;
 		}
 
@@ -74,18 +60,24 @@
 			}
 		}
 
-/*		public function getPageCount() {
+/*		public function getPageCount($category) {
 			$pageCount = 1;
-			$recordsCount = $this->recordsCount(2); //Считаем к-ство записей, соответсвенно категории
+			$recordsCount = $this->recordsCount($category); //Считаем к-ство записей, соответсвенно категории
 			if ($recordsCount > 0) {
 				$pageCount = ceil($recordsCount / $this->articlesPerPage);
 			}
 			return $pageCount;
+		}*/
+		
+		/* Функция обновления счетчика просмотров */
+		public function setViewCount($newsId, $currCount) {
+			$this->fview_count = $currCount + 1;
+			$res = $this->updateById($newsId);
 		}
-*/
+	
 		public function pageNavigation($currentPage, $category, $linkCount=5) {
 			$pageStr = null;
-			$pageCount = $this->getPageCount();
+			$pageCount = $this->getPageCount($category);
 			if (!isset($currentPage) && !is_numeric($currentPage)) {
 				$currentPage = 1;
 			}

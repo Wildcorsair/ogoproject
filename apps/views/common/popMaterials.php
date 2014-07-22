@@ -1,7 +1,14 @@
 <div class="block-content">
 	<ul>
-		<li><a href="#">Настройка модема ZTE H108L под протокол DHCP</a></li>
-		<li><a href="#">Запись 2</a></li>
-		<li><a href="#">Почему редко соответствует рыночным ожиданиям стимулирование комьюнити?</a></li>
+		<?php
+			$dataSet = $this->model->getPopLinks(2);
+			if (!empty($dataSet)) {
+				foreach ($dataSet as $record) {
+					$title = htmlspecialchars($record->ftitle);
+					$id = intval($record->fid);
+					echo "<li><a href='/materials/show/{$id}'>{$title}</a></li>";
+				}
+			}
+		?>
 	</ul>
 </div>

@@ -679,6 +679,14 @@ div.article-preview-text {
 	color: #000;
 }
 
+div.article-title-image {
+	width: 200px;
+	height: 200px;
+	margin-right: 20px;
+	float: left;
+	background-color: #cde;
+}
+
 span.user-name {
 	color: #f34a53; /*#aac789;*/
 	margin-right: 15px;
@@ -948,6 +956,7 @@ button.last {
 	width: 558px;
 	height: 150px;
 	padding: 10px;
+	margin-top: 10px;
 	border: 1px solid #ccc;
 	background-color: #eee;
 }
@@ -965,7 +974,7 @@ button.last {
 
 .btns-block {
 	margin-top: 5px;
-	width: 198px;
+	width: 203px;
 	float: right;
 }
 

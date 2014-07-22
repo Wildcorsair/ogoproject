@@ -67,6 +67,7 @@ $(document).ready(function() {
 		var posW = (w / 2) - 130;
 		var posH = offset.top - 75;
 		var newsId = $("input[name='newsId']").val();
+		var category = $("input[name='category']").val();
 		var commId = $(this).val();
 		$('body').append("<div class='dialog'>\
 							<div class='dialog-title'>Удаление</div>\
@@ -76,6 +77,7 @@ $(document).ready(function() {
 							<div class='dialog-buttons'>\
 								<form action='/comments/delete/"+commId+"' method='POST'>\
 									<input type='hidden' name='newsId' value='"+newsId+"'>\
+									<input type='hidden' name='category' value='"+category+"'>\
 									<button>Да</button>\
 									<button class='last' onclick='hideDialog(); return false;'>Нет</button>\
 								</form>\
@@ -89,17 +91,19 @@ $(document).ready(function() {
 		var commentText = $(this).parent("li").parent("ul").parent(".edit-panel").siblings(".comment-text");
 		var area = commentText.children("form");
 		var newsId = $("input[name='newsId']").val();
+		var category = $("input[name='category']").val();
 		if (area.length == 0) {
-			commentText.append('<form action="/comments/edit/'+$(this).val()+'" method="POST">\
-									<div class="edt-panel">\
-										<input type="hidden" name="newsId" value="'+newsId+'">\
-										<textarea name="editComment">'+commentText.html()+'</textarea>\
-										<div class="btns-block">\
-											<button>Сохранить</button>'+
-											'<button class="last" name="cancel" onclick="closeEdit(); return false;">Отменить</button>\
+			commentText.append("<form action='/comments/edit/"+$(this).val()+"' method='POST'>\
+									<div class='edt-panel'>\
+										<input type='hidden' name='newsId' value='"+newsId+"'>\
+										<input type='hidden' name='category' value='"+category+"'>\
+										<textarea name='editComment'>"+commentText.html()+"</textarea>\
+										<div class='btns-block'>\
+											<button>Сохранить</button>\
+											<button class='last' name='cancel' onclick='closeEdit(); return false;'>Отменить</button>\
 										</div>\
 									</div>\
-								</form>');
+								</form>");
 		}
 	});
 });

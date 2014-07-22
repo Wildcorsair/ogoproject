@@ -27,7 +27,7 @@
 		<div class="article-preview-image"></div>
 		<div class="article-preview-text">
 			<?php echo htmlspecialchars($record->fsummary_text); ?>
-			<a href="/materials/show/<?php echo $record->fid; ?>">Читать далее...</a>
+			<a href="/materials/show/<?php echo $record->fid; ?>">Читать&nbsp;далее...</a>
 		</div>	
 	</div>
 	<?php
