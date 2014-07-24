@@ -58,7 +58,7 @@
 					<ul>
 						<li><a href="/news">НОВОСТИ</a></li>
 						<li><a href="/materials">МАТЕРИАЛЫ</a></li>
-						<li><a href="#">КОНТАКТЫ</a></li>
+						<li><a href="/contacts">КОНТАКТЫ</a></li>
 						<li><a href="#">ФОРУМ</a></li>
 					</ul>
 				</div>
@@ -132,7 +132,7 @@
 				<ul>
 					<li><a href="/news">Новости</a></li>
 					<li><a href="/materials">Материалы</a></li>
-					<li><a href="#">Контакты</a></li>
+					<li><a href="/contacts">Контакты</a></li>
 					<li class="last-element"><a href="#">Форум</a></li>
 				</ul>
 			</div>

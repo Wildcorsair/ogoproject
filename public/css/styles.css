@@ -241,6 +241,7 @@ span#registration-href {
 	color: #437356;
 	width: 580px;
 	padding: 50px 0;
+	color: #555;
 }
 
 #show-error-msg {
@@ -251,6 +252,7 @@ span#registration-href {
 }
 
 #content-registration-block h3 {
+	color: #437356;
 	height: 32px;
 	padding-bottom: 8px;
 	border-bottom: 1px solid #bbb;
@@ -304,6 +306,53 @@ div.reg-email-input-wrapper {
 
 #content-registration-block input.email-text-field {
 	width: 200px;
+}
+
+table#contacts tr.caption {
+	margin-top: 15px;
+	font-weight: bold;
+	color: #F34A53;
+}
+
+table#contacts td {
+	font-size: 0.9em;
+}
+
+div#feedback-form {
+	width: 560px;
+	padding: 10px;
+	margin-top: 25px;
+	border: 1px solid #bbb;
+	background-color: #d0e6b7; /*#AAC789;*/
+}
+
+div#feedback-form input[type="text"], textarea {
+	color: #bbb;
+}
+
+.feedback-textarea-wrapper {
+	width: 535px;
+	height: 80px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+}
+
+textarea[name="feedback-textarea"] {
+	border: medium none;
+	outline: medium none;
+	resize: none;
+	width: 535px;
+	height: 80px;
+	font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+	font-size: 0.94em;
+}
+
+#warning-window {
+	width: 250px;
+	height: 150px;
+	background-color: #f5d8d8;
+	/*top: 15px;
+	left: 15px;*/
 }
 
 .date-block {

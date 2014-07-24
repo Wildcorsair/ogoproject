@@ -17,18 +17,21 @@ $(document).ready(function() {
 		if ($(this).val() == "Пароль") {
 			$(this).val("");
 		}
+		return false;
 	});
 
 	$("input[name='userPassword']").blur(function() {
 		if ($(this).val() == "") {
 			$(this).val("Пароль");
 		}
+		return false;
 	});
 
 	$("input[name='searchField']").focus(function() {
 		if ($(this).val() == "Поиск по сайту") {
 			$(this).val("");
 		}
+		return false;
 	});
 
 	$("input[name='searchField']").blur(function() {
@@ -41,24 +44,76 @@ $(document).ready(function() {
 		if ($(this).val() == "Ваше имя") {
 			$(this).val("");
 		}
+		return false;
 	});
 
 	$("input[name='userName']").blur(function() {
 		if ($(this).val() == "") {
 			$(this).val("Ваше имя");
 		}
+		return false;
 	});
 
 	$("input[name='subscribeEmail']").focus(function() {
 		if ($(this).val() == "Email адрес") {
 			$(this).val("");
 		}
+		return false;
 	});
 
 	$("input[name='subscribeEmail']").blur(function() {
 		if ($(this).val() == "") {
 			$(this).val("Email адрес");
 		}
+		return false;
+	});
+
+	$("input[name='feedbackUser']").focus(function() {
+		if ($(this).val() == "Ваше имя") {
+			$(this).val("");
+			$(this).css({'color':'#555'});
+		}
+		return false;
+	});
+
+	$("input[name='feedbackUser']").blur(function() {
+		if ($(this).val() == "") {
+			$(this).val("Ваше имя");
+			$(this).css({'color':'#ccc'});
+		}
+		return false;
+	});
+
+	$("input[name='feedbackEmail']").focus(function() {
+		if ($(this).val() == "Email адрес") {
+			$(this).val("");
+			$(this).css({'color':'#555'});
+		}
+		return false;
+	});
+
+	$("input[name='feedbackEmail']").blur(function() {
+		if ($(this).val() == "") {
+			$(this).val("Email адрес");
+			$(this).css({'color':'#ccc'});
+		}
+		return false;
+	});
+
+	$("textarea[name='feedback-textarea']").focus(function() {
+		if ($(this).val() == "Ваше сообщение") {
+			$(this).val("");
+			$(this).css({'color':'#555'});
+		}
+		return false;
+	});
+
+	$("textarea[name='feedback-textarea']").blur(function() {
+		if ($(this).val() == "") {
+			$(this).val("Ваше сообщение");
+			$(this).css({'color':'#ccc'});
+		}
+		return false;
 	});
 
 	$('.delete-btn').click(function() {
@@ -104,6 +159,25 @@ $(document).ready(function() {
 										</div>\
 									</div>\
 								</form>");
+		}
+	});
+
+	$("#feedback").submit(function(event) {
+		var feedbackUser = $.trim($("input[name='feedbackUser']").val());
+		var feedbackEmail = $.trim($("input[name='feedbackEmail']").val());
+		var feedbackMessage = $.trim($("textarea[name='feedback-textarea']").val());
+		if (feedbackUser === "Ваше имя" || feedbackUser === "") {
+			alert("Пустое имя пользователя");
+			event.preventDefault();
+			return false;
+		} else if (feedbackEmail === "Email адрес" || feedbackEmail === "") {
+			alert("Пустой email адрес");
+			event.preventDefault();
+			return false;
+		} else if (feedbackMessage === "Ваше сообщение" || feedbackMessage === "") {
+			alert("Пустое сообщение!");
+			event.preventDefault();
+			return false;
 		}
 	});
 });
