@@ -124,18 +124,20 @@ $(document).ready(function() {
 		var newsId = $("input[name='newsId']").val();
 		var category = $("input[name='category']").val();
 		var commId = $(this).val();
-		$('body').append("<div class='dialog'>\
-							<div class='dialog-title'>Удаление</div>\
-							<div class='dialog-text'>\
-								Удалить комментарий?\
-							</div>\
-							<div class='dialog-buttons'>\
-								<form action='/comments/delete/"+commId+"' method='POST'>\
-									<input type='hidden' name='newsId' value='"+newsId+"'>\
-									<input type='hidden' name='category' value='"+category+"'>\
-									<button>Да</button>\
-									<button class='last' onclick='hideDialog(); return false;'>Нет</button>\
-								</form>\
+		$('body').append("<div class='black-frame'>\
+							<div class='dialog'>\
+								<div class='dialog-title'>Удаление</div>\
+								<div class='dialog-text'>\
+									Удалить комментарий?\
+								</div>\
+								<div class='dialog-buttons'>\
+									<form action='/comments/delete/"+commId+"' method='POST'>\
+										<input type='hidden' name='newsId' value='"+newsId+"'>\
+										<input type='hidden' name='category' value='"+category+"'>\
+										<button>Да</button>\
+										<button class='last' onclick='hideDialog(); return false;'>Нет</button>\
+									</form>\
+								</div>\
 							</div>\
 						</div>");
 		$(".dialog").offset({top: posH, left: posW});
@@ -167,15 +169,15 @@ $(document).ready(function() {
 		var feedbackEmail = $.trim($("input[name='feedbackEmail']").val());
 		var feedbackMessage = $.trim($("textarea[name='feedback-textarea']").val());
 		if (feedbackUser === "Ваше имя" || feedbackUser === "") {
-			alert("Пустое имя пользователя");
+			showDialog("Пустое имя пользователя");
 			event.preventDefault();
 			return false;
 		} else if (feedbackEmail === "Email адрес" || feedbackEmail === "") {
-			alert("Пустой email адрес");
+			showDialog("Пустой email адрес");
 			event.preventDefault();
 			return false;
 		} else if (feedbackMessage === "Ваше сообщение" || feedbackMessage === "") {
-			alert("Пустое сообщение!");
+			showDialog("Пустое сообщение!");
 			event.preventDefault();
 			return false;
 		}
@@ -183,11 +185,28 @@ $(document).ready(function() {
 });
 
 function hideDialog() {
-	$(".dialog").remove(".dialog");
+	$(".black-frame").remove(".black-frame");
 }
 
 function closeEdit() {
 	var tarea = $("textarea[name='editComment']");
 	var frm = tarea.parent("div").parent("form");
 	frm.remove();
+}
+
+function showDialog(warningMsg) {
+	/*var w = $(window).width();
+	var offset = $("input[name='postFeedback']").offset();
+	var posW = (w / 2) - 130;
+	var posH = offset.top - 95;*/
+	$("#feedback-form").append("<div class='black-frame'>\
+									<div class='dialog'>\
+										<div class='dialog-title'>Предупреждение!</div>\
+										<div class='dialog-text'>"+warningMsg+"</div>\
+										<div class='dialog-buttons'>\
+											<button class='last' onclick='hideDialog(); return false;'>Ок</button>\
+										</div>\
+									</div>\
+								</div>");
+	//$(".dialog").offset({top: posH, left: posW});
 }

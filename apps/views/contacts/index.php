@@ -18,9 +18,18 @@
 			</tbody>
 		</table>
 		<div id="feedback-form">
-			<!--<div id="warning-window">
-				Сообщение!
-			<div>-->
+			<!--Dialog Window
+			<div class="black-frame">	
+				<div class="dialog">
+					<div class='dialog-title'>Предупреждение!</div>
+						<div class='dialog-text'>
+							Пустое имя пользователя!
+						</div>
+						<div class='dialog-buttons'>
+							<button class='last' onclick='hideDialog(); return false;'>Ок</button>
+						</div>
+				</div>
+			</div>-->
 			<h4>Пишите нам:</h4>
 			<form id="feedback" action="/contacts/feedback" method="POST">
 				<table>
