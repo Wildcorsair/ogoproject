@@ -247,9 +247,19 @@ span#registration-href {
 
 #show-error-msg {
 	padding: 7px;
-	width: 562px;
-	color: red;
+	width: 566px;
+	color: #fff;
+	background-color: #F34A53;
 	border: 1px solid red;
+	margin: 10px 0;
+}
+
+#show-info-msg {
+	padding: 7px;
+	width: 562px;
+	color: #fff;
+	background-color: #437356; /*#588DFF;*/
+	border: 1px solid #1A3F49;
 	margin: 10px 0;
 }
 
@@ -994,7 +1004,7 @@ div.dialog-text {
 
 div.dialog-buttons {
 	text-align: center;
-	width: 134px;
+	width: 136px;
 	margin: 0 auto;
 	color: #c33;
 }
