@@ -165,6 +165,7 @@ $(document).ready(function() {
 	});
 
 	$("#feedback").submit(function(event) {
+		var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
 		var feedbackUser = $.trim($("input[name='feedbackUser']").val());
 		var feedbackEmail = $.trim($("input[name='feedbackEmail']").val());
 		var feedbackMessage = $.trim($("textarea[name='feedback-textarea']").val());
@@ -178,6 +179,30 @@ $(document).ready(function() {
 			return false;
 		} else if (feedbackMessage === "Ваше сообщение" || feedbackMessage === "") {
 			showDialog("Пустое сообщение!");
+			event.preventDefault();
+			return false;
+		} else if (!pattern.test(feedbackEmail)) {
+			showDialog("Не правильный email адрес!");
+			event.preventDefault();
+			return false;
+		}
+	});
+
+	$("#subscribe").submit(function(event) {
+		var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+		var subscriberName = $.trim($("input[name='userName']").val());
+		var subscriberEmail = $.trim($("input[name='subscribeEmail']").val());
+		//alert (subscriberName+subscriberEmail);
+		if (subscriberName === "Ваше имя" || subscriberName === "") {
+			showDialog("Пустое имя пользователя");
+			event.preventDefault();
+			return false;
+		} else if (subscriberEmail === "Email адрес" || subscriberEmail === "") {
+			showDialog("Пустой email адрес");
+			event.preventDefault();
+			return false;
+		} else if (!pattern.test(subscriberEmail)) {
+			showDialog("Не правильный email адрес!");
 			event.preventDefault();
 			return false;
 		}
@@ -195,11 +220,7 @@ function closeEdit() {
 }
 
 function showDialog(warningMsg) {
-	/*var w = $(window).width();
-	var offset = $("input[name='postFeedback']").offset();
-	var posW = (w / 2) - 130;
-	var posH = offset.top - 95;*/
-	$("#feedback-form").append("<div class='black-frame'>\
+	$("#page-wrapper").append("<div class='black-frame'>\
 									<div class='dialog'>\
 										<div class='dialog-title'>Предупреждение!</div>\
 										<div class='dialog-text'>"+warningMsg+"</div>\
@@ -208,5 +229,4 @@ function showDialog(warningMsg) {
 										</div>\
 									</div>\
 								</div>");
-	//$(".dialog").offset({top: posH, left: posW});
 }

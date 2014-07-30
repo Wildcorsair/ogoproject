@@ -156,14 +156,14 @@ class RegistrationModel extends BDatabase {
 		}
 	}
 
-	public function emailValidate($email) {
+	/*public function emailValidate($email) {
 		//"|^[-0-9a-z_\.]+@[-0-9a-z_^\.]+\.[a-z]{2,6}$|i"
 		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			return true;
 		} else {
 			return false;
 		}
-	}
+	}*/
 
 	public function loginValidate($login) {
 		if (preg_match("|^[0-9a-z]{1,16}$|i", $login)) {

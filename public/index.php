@@ -137,14 +137,14 @@
 				</ul>
 			</div>
 			<div id="footer-subscribe"><span>Оставайтесь с нами:</span>
-				<form action="subscribe.php" method="POST">
+				<form id="subscribe" action="/subscribe/go" method="POST">
 					<div class="input-wrapper">
 						<input type="text" value="Ваше имя" name="userName">
 					</div>
 					<div class="input-wrapper clear-margin-right">
 						<input type="text" value="Email адрес" name="subscribeEmail">
 					</div>
-					<input type="submit" value="Подписаться">
+					<input type="submit" name="subscribe-btn" value="Подписаться">
 				</form>
 				<div class="clear"></div>
 				<div id="email-info-block">
