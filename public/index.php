@@ -59,7 +59,11 @@
 						<li><a href="/news">НОВОСТИ</a></li>
 						<li><a href="/materials">МАТЕРИАЛЫ</a></li>
 						<li><a href="/contacts">КОНТАКТЫ</a></li>
-						<li><a href="#">ФОРУМ</a></li>
+						<?php $this->user = $this->model->isAuthorized();
+							if (!empty($this->user->fid)  && !empty($this->user->fname)) { ?>
+							<li><a href="http://wild.blog.ua">CPANEL</a></li>
+						<?php } ?>
+						<!--<li><a href="#">ФОРУМ</a></li>-->
 					</ul>
 				</div>
 			</div>
@@ -133,7 +137,7 @@
 					<li><a href="/news">Новости</a></li>
 					<li><a href="/materials">Материалы</a></li>
 					<li><a href="/contacts">Контакты</a></li>
-					<li class="last-element"><a href="#">Форум</a></li>
+					<!--<li class="last-element"><a href="#">Форум</a></li>-->
 				</ul>
 			</div>
 			<div id="footer-subscribe"><span>Оставайтесь с нами:</span>

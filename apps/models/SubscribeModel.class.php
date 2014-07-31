@@ -23,9 +23,20 @@ class SubscribeModel extends BDatabase {
 				exit();
 			}
 			
-			$this->fsubscriberName = $uName;
-			$this->fsubscriberEmail = $uEmail;
-			$this->insert();
+			$fields = "fsubscriberEmail";
+			$cond = array("`fsubscriberEmail` = :s", array($uEmail));
+			$limit = array(0, 1);
+			$dataSet = $this->select($fields, $cond, $limit);
+			if (!empty($dataSet)) {
+				header("Location: /error/message/18");
+				exit();
+			} else {
+				$this->fsubscriberName = $uName;
+				$this->fsubscriberEmail = $uEmail;
+				$this->insert();
+				header("Location: /subscribe/complite");
+				exit();
+			}
 		}
 	}
 }
