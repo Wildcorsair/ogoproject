@@ -61,7 +61,7 @@
 						<li><a href="/contacts">КОНТАКТЫ</a></li>
 						<?php $this->user = $this->model->isAuthorized();
 							if (!empty($this->user->fid)  && !empty($this->user->fname)) { ?>
-							<li><a href="http://wild.blog.ua">CPANEL</a></li>
+							<li><a href="/cpanel">CPANEL</a></li>
 						<?php } ?>
 						<!--<li><a href="#">ФОРУМ</a></li>-->
 					</ul>
