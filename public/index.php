@@ -59,7 +59,11 @@
 						<li><a href="/news">НОВОСТИ</a></li>
 						<li><a href="/materials">МАТЕРИАЛЫ</a></li>
 						<li><a href="/contacts">КОНТАКТЫ</a></li>
-						<li><a href="#">ФОРУМ</a></li>
+						<?php $this->user = $this->model->isAuthorized();
+							if (!empty($this->user->fid)  && !empty($this->user->fname)) { ?>
+							<li><a href="/cpanel">CPANEL</a></li>
+						<?php } ?>
+						<!--<li><a href="#">ФОРУМ</a></li>-->
 					</ul>
 				</div>
 			</div>
@@ -133,18 +137,18 @@
 					<li><a href="/news">Новости</a></li>
 					<li><a href="/materials">Материалы</a></li>
 					<li><a href="/contacts">Контакты</a></li>
-					<li class="last-element"><a href="#">Форум</a></li>
+					<!--<li class="last-element"><a href="#">Форум</a></li>-->
 				</ul>
 			</div>
 			<div id="footer-subscribe"><span>Оставайтесь с нами:</span>
-				<form action="subscribe.php" method="POST">
+				<form id="subscribe" action="/subscribe/go" method="POST">
 					<div class="input-wrapper">
 						<input type="text" value="Ваше имя" name="userName">
 					</div>
 					<div class="input-wrapper clear-margin-right">
 						<input type="text" value="Email адрес" name="subscribeEmail">
 					</div>
-					<input type="submit" value="Подписаться">
+					<input type="submit" name="subscribe-btn" value="Подписаться">
 				</form>
 				<div class="clear"></div>
 				<div id="email-info-block">

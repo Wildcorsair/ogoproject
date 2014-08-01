@@ -17,6 +17,11 @@
 				</tr>
 			</tbody>
 		</table>
+		<?php
+			if (!empty($this->infoMsg)) {
+				$this->model->checkInfoMsg($this->infoMsg);
+			}
+		?>
 		<div id="feedback-form">
 			<!--Dialog Window
 			<div class="black-frame">	
@@ -37,20 +42,24 @@
 						<tr>
 							<td>
 								<div class="reg-input-wrapper">
-									<input type="text" name="feedbackUser" maxlength="20" class="text-field" value="Ваше имя">
+									<input type="text" name="feedbackUser" maxlength="20" class="text-field" 
+									value="<?php echo (isset($_COOKIE['uName']) ? $_COOKIE['uName'] : 'Ваше имя'); ?>">
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<div class="reg-email-input-wrapper">
-									<input type="text" name="feedbackEmail" class="email-text-field" value="Email адрес">
+									<input type="text" name="feedbackEmail" class="email-text-field" 
+									value="<?php echo (isset($_COOKIE['uEmail']) ? $_COOKIE['uEmail'] : 'Email адрес'); ?>">
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<div class="feedback-textarea-wrapper"><textarea name="feedback-textarea">Ваше сообщение</textarea></div>
+								<div class="feedback-textarea-wrapper">
+									<textarea name="feedback-textarea"><?php echo (isset($_COOKIE['uMessage']) ? $_COOKIE['uMessage'] : 'Ваше сообщение'); ?></textarea>
+								</div>
 							</td>
 						</tr>
 						<tr>
@@ -59,6 +68,11 @@
 					</tbody>
 				</table>
 			</form>
+			<?php
+				isset($_COOKIE["uName"]) ? setcookie("uName", "") : "";
+				isset($_COOKIE["uEmail"]) ? setcookie("uEmail", "") : "";
+				isset($_COOKIE["uMessage"]) ? setcookie("uMessage", "") : "";
+			?>
 		</div>
 	</div>
 </div>

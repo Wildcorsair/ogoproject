@@ -60,6 +60,15 @@
 			}
 		}
 
+		public function emailValidate($email) {
+			//"|^[-0-9a-z_\.]+@[-0-9a-z_^\.]+\.[a-z]{2,6}$|i"
+			if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 /*		public function getPageCount($category) {
 			$pageCount = 1;
 			$recordsCount = $this->recordsCount($category); //Считаем к-ство записей, соответсвенно категории
