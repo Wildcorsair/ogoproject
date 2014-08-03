@@ -6,6 +6,7 @@ class BController {
 	public $content;
 	public $controllerClassName;
 	public $tamplate;
+	public $mainTamplate = "index.php";
 	
 	public function __construct () {
 		/*
@@ -30,7 +31,7 @@ class BController {
 						"/".$tamplateName.".php";
 			}
 		} else {
-			$fullPath = ROOT."/public/index.php";
+			$fullPath = ROOT."/public/".$this->mainTamplate;
 		}
 		include_once($fullPath);
 	}

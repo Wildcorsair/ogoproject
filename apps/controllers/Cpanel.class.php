@@ -1,9 +1,9 @@
 <?php
 
 class Cpanel extends BController {
-	public $tamplate = "cpanel.php";
+	public $mainTamplate = "cpanel.php";
 	
-	public function render($tamplateName = "index", $nested = false, $common = false) {
+	/*public function render($tamplateName = "index", $nested = false, $common = false) {
 		$this->tamplate = $tamplateName;
 		if ($nested) {
 			if ($common) {
@@ -18,12 +18,12 @@ class Cpanel extends BController {
 			$fullPath = ROOT."/apps/views/cpanel/cpanel.php";
 		}
 		include_once($fullPath);
-	}
+	}*/
 
 	public function index() {
 		//	Используем "true" вторым параметром функции
 		//	для того чтобы не грузился главный шаблон сайта
-		$this->render("cpanel", true);
+		$this->render("index");
 	}
 
 	public function news() {
