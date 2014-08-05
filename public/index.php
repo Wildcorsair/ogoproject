@@ -59,10 +59,13 @@
 						<li><a href="/news">НОВОСТИ</a></li>
 						<li><a href="/materials">МАТЕРИАЛЫ</a></li>
 						<li><a href="/contacts">КОНТАКТЫ</a></li>
-						<?php $this->user = $this->model->isAuthorized();
-							if (!empty($this->user->fid)  && !empty($this->user->fname)) { ?>
-							<li><a href="/cpanel">CPANEL</a></li>
-						<?php } ?>
+						<?php
+							if (!empty($this->user->fid)) {
+								$user = new User();
+								$res = $user->userCheck($this->user->fid);
+								var_dump($res);
+							}
+						?>
 						<!--<li><a href="#">ФОРУМ</a></li>-->
 					</ul>
 				</div>
