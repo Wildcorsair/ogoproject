@@ -1,3 +1,16 @@
+<?php
+	$this->user->isUserAuthorized();
+	if (!empty($this->user->data->fid)) {
+		$isAllow = $this->user->checkUserPermission("cpanel_access", $this->user->data->fid);
+		if (!$isAllow) {
+			header("Location: /");
+			exit();
+		}
+	} else {
+		header("Location: /");
+		exit();		
+	}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -39,11 +52,33 @@
 			#logo {
 				width: 253px;
 				height: 27px;
+				float: left;
 				margin-top: 5px;
 				margin-left: 30px;
 				background: url('../public/images/cpanel-logo.png') no-repeat;
 			}
+
+			#user-panel-block {
+				color: #4169ac;
+				width: 250px;
+				height: 27px;
+				float: right;
+				font-size: 0.55em;
+				margin-right: 30px;
+				margin-top: 5px;
+				text-align: right;
+				font-family: Impact, Arial, sans-serif;
+			}
 			
+			#user-panel-block>a {
+				color: #fff;
+				text-decoration: none;
+			}
+
+			#user-panel-block>a:hover {
+				color: #4169ac;
+			}
+
 			#content {
 				min-width: 1000px;
 				width: 100%;
@@ -73,8 +108,8 @@
 				color: #fff;
 				display: block;
 				float: left;
-				height: 26px;
-				padding: 10px;
+				height: 22px;
+				padding: 12px;
 				margin: 1px 1px 0 1px;
 				text-align: center;
 				text-decoration: none;
@@ -101,18 +136,58 @@
 				background-color: #ededed;
 				border: 1px solid #aaa;
 			}
+			.data-block {
+				padding: 10px;
+			}
+
+			table {
+				color: #020508;
+				border-top: 1px solid #cdcdcd;
+				border-left: 1px solid #cdcdcd;
+			}
+
+			thead {
+				color: #fff;
+				background-color: #2aa0f3;
+			}
+
+			tr {
+				cursor: default;
+				border-bottom: 1px solid #cdcdcd;
+			}
+
+			tbody>tr:hover {
+				background-color: #91d0cf;
+			}
+
+			td {
+				border-bottom: 1px solid #cdcdcd;
+				border-right: 1px solid #cdcdcd;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="wrapper">
 			<div id="header">
 				<div id="logo"></div>
+				<div id="user-panel-block">
+					<?php
+						echo $this->user->data->fname." | ";
+					?>
+					<a href="/">Выход</a>
+				</div>
 			</div>
 			<div id="main-menu">
 				<ul>
 					<li><a href="/cpanel/news">Новости</a></li>
 					<li><a href="/cpanel/materials">Материалы</a></li>
-					<li><a href="#">Пользователи</a></li>
+					<?php
+						$isAllow = $this->user->checkUserPermission("user_list_view", $this->user->data->fid);
+						if ($isAllow) { ?>
+							<li><a href="/cpanel/users">Пользователи</a></li>
+					<?php	
+						}
+					?>
 				</ul>
 			</div>
 			<div id="content">

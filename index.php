@@ -8,7 +8,7 @@
 			include_once ($fullPath);
 		}
 	}
-
+	
 	$router = new Router();
 	$router->run();
 ?>

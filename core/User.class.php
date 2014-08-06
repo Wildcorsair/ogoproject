@@ -1,7 +1,9 @@
 <?php
 
 class User {
-	
+	public $model;
+	public $data;
+
 	public function __construct () {
 		/*
 		 * Определяем имя класса, для того чтобы подключать
@@ -13,9 +15,15 @@ class User {
 		$this->model = new $modelClassName();
 	}
 	
-	public function userCheck($userId) {
-		$dataSet = $this->model->userCheckPermissions($userId);
-		return $dataSet;
+	public function checkUserPermission($permission, $userId) {
+		$isAllow = $this->model->userCheckPermissions($permission, $userId);
+		return $isAllow;
+	}
+
+	public function isUserAuthorized() {
+		/*$dataSet = $this->model->getAuthorizedUserData();
+		return $dataSet;*/
+		$this->data = $this->model->getAuthorizedUserData();
 	}
 }
 

@@ -45,7 +45,23 @@
 			return $data;
 		}
 
-		public function isAuthorized() {
+		public function dataGrid($dataSet, $fieldsList) {
+			echo "<table><thead><tr>";
+			foreach ($fieldsList as $fieldName => $fieldCaption) {
+				echo "<td>".$fieldCaption."</td>";
+			}
+			echo "<td></td></tr></thead><tbody>";
+			foreach ($dataSet as $record) {
+				echo "<tr>";
+					foreach ($fieldsList as $fieldName => $fieldCaption) {
+						echo "<td>".$record->$fieldName."</td>";
+					}
+				echo "<td><button>Edit</button></td></tr>";
+			}
+			echo "</tbody></table>";
+		}
+
+		/*public function isAuthorized() {
 			$dataSet = null;
 			if (isset($_COOKIE['UID'])) {
 				$cookieKey = $_COOKIE['UID'];
@@ -58,7 +74,7 @@
 				$userData = $dataSet[0];
 				return $userData;
 			}
-		}
+		}*/
 
 		public function emailValidate($email) {
 			//"|^[-0-9a-z_\.]+@[-0-9a-z_^\.]+\.[a-z]{2,6}$|i"

@@ -33,6 +33,10 @@ class Cpanel extends BController {
 	public function materials() {
 		$this->render("materials");
 	}
+
+	public function users() {
+		$this->render("users");
+	}
 }
 
 ?>

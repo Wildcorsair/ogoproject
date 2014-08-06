@@ -18,11 +18,13 @@
 				<div id="top-block-center">
 					<div id="login-form-block">
 						<?php 
-							$this->user = $this->model->isAuthorized();
-							if (!empty($this->user->fid)  && !empty($this->user->fname)) { ?>
+							$this->user->isUserAuthorized();
+							/*echo get_class($this);
+							echo get_class($this->userObj);*/
+							if (!empty($this->user->data->fid)  && !empty($this->user->data->fname)) { ?>
 								<form action="/authorization/logout" method="POST">
 									<div id="user-block">
-										Добро пожаловать,&nbsp;<span class="user-name"><?php echo $this->user->fname; ?></span>
+										Добро пожаловать,&nbsp;<span class="user-name"><?php echo $this->user->data->fname; ?></span>
 									</div>
 									<input type="submit" name="logoutButton" value="Выйти">
 								</form>
@@ -60,10 +62,11 @@
 						<li><a href="/materials">МАТЕРИАЛЫ</a></li>
 						<li><a href="/contacts">КОНТАКТЫ</a></li>
 						<?php
-							if (!empty($this->user->fid)) {
-								$user = new User();
-								$res = $user->userCheck($this->user->fid);
-								var_dump($res);
+							if (!empty($this->user->data->fid)) {
+								$isAllow = $this->user->checkUserPermission("cpanel_access", $this->user->data->fid);
+								if ($isAllow) {
+									echo "<li><a href='/cpanel'>CPANEL</a></li>";
+								}
 							}
 						?>
 						<!--<li><a href="#">ФОРУМ</a></li>-->

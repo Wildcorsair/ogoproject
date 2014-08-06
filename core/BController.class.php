@@ -9,6 +9,7 @@ class BController {
 	public $mainTamplate = "index.php";
 	
 	public function __construct () {
+		$this->user = new User();
 		/*
 		 * Определяем имя класса, для того чтобы подключать
 		 * "Виды" и "Модели" соответсвенно контроллеру
