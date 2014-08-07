@@ -59,7 +59,7 @@
 			}
 
 			#user-panel-block {
-				color: #4169ac;
+				color: #d8f9fd;
 				width: 250px;
 				height: 27px;
 				float: right;
@@ -140,29 +140,59 @@
 				padding: 10px;
 			}
 
+			.grid-frame {
+				height: 260px;
+				margin: 5px;
+				border: 1px solid #8dd8e1;
+				overflow: hidden;
+			}
+
+			.grid-header {
+				height: 23px;
+				padding: 3px;
+				color: #616161;
+				background-color: #edfdff; /*#d8f9fd;*/
+				border-bottom: 1px solid #8dd8e1;
+				font-size: 18px;
+				font-family: Arial, Tahoma, Verdana, sans-serif;
+			}
+
+			.grid-workspace {
+				overflow: auto;
+				height: 200px; /*.grid-frame (height - 60px)*/
+			}
+
+			.grid-footer {
+				height: 23px;
+				padding: 3px;
+				color: #616161;
+				border-top: 1px solid #8dd8e1;		
+			}
+
 			table {
-				color: #020508;
-				border-top: 1px solid #cdcdcd;
-				border-left: 1px solid #cdcdcd;
+				color: #444649;
+				/*border-top: 1px solid #cdcdcd;
+				border-left: 1px solid #cdcdcd;*/
 			}
 
 			thead {
-				color: #fff;
-				background-color: #2aa0f3;
+				text-align: center;
+				font-size: 16px;
+				color: #616161;
+				background-color: #edfdff;
 			}
 
 			tr {
 				cursor: default;
-				border-bottom: 1px solid #cdcdcd;
 			}
 
 			tbody>tr:hover {
-				background-color: #91d0cf;
+				background-color: #d7d7d7;
 			}
 
 			td {
-				border-bottom: 1px solid #cdcdcd;
-				border-right: 1px solid #cdcdcd;
+				border-bottom: 1px solid #a4a4a4;
+				border-right: 1px solid #a4a4a4;
 			}
 		</style>
 	</head>

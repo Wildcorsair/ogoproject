@@ -46,7 +46,8 @@
 		}
 
 		public function dataGrid($dataSet, $fieldsList) {
-			echo "<table><thead><tr>";
+			echo "<div class='grid-frame'><div class='grid-header'>Пользователи</div>";
+			echo "<div class='grid-workspace'><table><thead><tr>";
 			foreach ($fieldsList as $fieldName => $fieldCaption) {
 				echo "<td>".$fieldCaption."</td>";
 			}
@@ -58,7 +59,7 @@
 					}
 				echo "<td><button>Edit</button></td></tr>";
 			}
-			echo "</tbody></table>";
+			echo "</tbody></table></div><div class='grid-footer'>Записей 1 из 23<div></div>";
 		}
 
 		/*public function isAuthorized() {

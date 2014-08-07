@@ -32,6 +32,9 @@
 
 
 			<div id="comments-block">
+				<div id='show-error-msg' name="#anchor">
+					Ошибочка если что! %-)
+				</div>	
 				<p>Комментарии:</p>
 				<?php
 					$dataSet = $this->model->commentsObject->getComments($this->articleId);
@@ -44,7 +47,7 @@
 						<?php echo date("d.m.Y | H:i:s", strtotime($comment->fcreate_date)); ?>
 					</div>
 						<?php
-							if (isset($this->user->fid) && $comment->fauthor_id == $this->user->fid) { ?>
+							if (isset($this->user->data->fid) && $comment->fauthor_id == $this->user->data->fid) { ?>
 								<div class="edit-panel">
 									<ul>
 										<li><button class="edit-btn" value='<?php echo $comment->fid; ?>'></button></li>
@@ -65,18 +68,23 @@
 						</div>
 				<?php
 					}
-						if (!empty($this->user->fid)  && !empty($this->user->fname)) { ?>
-							<p>Оставить комментарий:</p>
-							<form action="/comments/leave/materials" method="POST">
-								<input type="hidden" name="newsId" value="<?php echo $record->fid; ?>">
-								<input type="hidden" name="category" value="materials">
-								<div class="textarea-wrapper">
-									<textarea name="commentText"></textarea>
-								</div>
-								<input type="submit" value="Комментировать" name="commentButton">
-							</form>
+						if (!empty($this->user->data->fid)  && is_numeric($this->user->data->fid)) { 
+							$isAllow = $this->user->checkUserPermission("leave_comments", $this->user->data->fid);
+							if ($isAllow) { ?>
+								<p>Оставить комментарий:</p>
+								<form action="/comments/leave/materials" method="POST">
+									<input type="hidden" name="newsId" value="<?php echo $record->fid; ?>">
+									<input type="hidden" name="category" value="materials">
+									<div class="textarea-wrapper">
+										<textarea name="commentText"></textarea>
+									</div>
+									<input type="submit" value="Комментировать" name="commentButton">
+									<a name="#anchor">
+								</form>
 <?php
-						} ?>
+						}
+					}
+				?>
 			</div>
 <?php
 		} else { ?>

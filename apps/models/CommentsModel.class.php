@@ -22,21 +22,24 @@ class CommentsModel extends BDatabase {
 		return $data;
 	}
 
-	public function leave($category) {
-		$user = $this->isAuthorized();
-		if (isset($user->fid) && !is_null($user->fid)) {
-			$commentText = strip_tags(trim($_POST['commentText']));
-			if (!empty($commentText)) {
-				$this->fnews_id = $_POST['newsId'];
-				$this->fauthor_id = $user->fid;
-				$this->ftext = $commentText;
-				$this->insert();
-				header("Location: /".$category."/show/".$_POST['newsId']);
-				exit;
-			} else {
-				header("Location: /error/message/16");
-				exit;
-			}
+	public function leave($category, $userObject) {
+		$userObject->isUserAuthorized();
+		if (!is_null($userObject->data->fid) && is_numeric($userObject->data->fid)) {
+			$isAllow = $userObject->checkUserPermission("leave_comments", $userObject->data->fid);
+				if ($isAllow) {
+					$commentText = strip_tags(trim($_POST['commentText']));
+					if (!empty($commentText)) {
+						$this->fnews_id = $_POST['newsId'];
+						$this->fauthor_id = $userObject->data->fid;
+						$this->ftext = $commentText;
+						$this->insert();
+						header("Location: /".$category."/show/".$_POST['newsId']);
+						exit();
+					} else {
+						header("Location: /error/message/16");
+						exit();
+					}
+				}
 		} else {
 			header("Location: /error/message/14");
 			exit;
@@ -44,38 +47,51 @@ class CommentsModel extends BDatabase {
 
 	}
 
-	public function edit($commentId) {
-		$user = $this->isAuthorized();
-		if (isset($user->fid) && !is_null($user->fid)) {
-			$editComment = strip_tags(trim($_POST['editComment']));
-			if (!empty($editComment)) {
-				$this->ftext = $editComment;
-				$this->updateById($commentId);
-				$category = strip_tags(trim($_POST['category']));
-				header("Location: /".$category."/show/".$_POST['newsId']);
-				exit;
-			} else {
-				header("Location: /error/message/16");
-				exit;
-			}
+	public function edit($commentId, $userObject) {
+		$userObject->isUserAuthorized();
+		if (!is_null($userObject->data->fid) && is_numeric($userObject->data->fid)) {
+			$isAllow = $userObject->checkUserPermission("edit_comments", $userObject->data->fid);
+				if ($isAllow) {
+					$editComment = strip_tags(trim($_POST['editComment']));
+					if (!empty($editComment)) {
+						$this->ftext = $editComment;
+						$this->updateById($commentId);
+						$category = strip_tags(trim($_POST['category']));
+						header("Location: /".$category."/show/".$_POST['newsId']);
+						exit();
+					} else {
+						header("Location: /error/message/16");
+						exit();
+					}
+				} else {
+					header("Location: /error/message/19");
+					exit();
+				}
 		} else {
 			header("Location: /error/message/14");
-			exit;
+			exit();
 		}
 	}
 	
-	public function delete($commentId) {
-		$user = $this->isAuthorized();
-		if (!empty($user->fid)) {
-			$result = $this->deleteByParams("`fid` = :i AND `fauthor_id` = :i", array($commentId, $user->fid));
-			if (isset($_POST['newsId']) && is_numeric($_POST['newsId'])) {
-				$category = strip_tags(trim($_POST['category']));
-				header("Location: /".$category."/show/".$_POST['newsId']);
-				exit;
-			} else {
-				header("Location: /error/message/15");
-				exit;
-			}
+	public function delete($commentId, $userObject) {
+		$userObject->isUserAuthorized();
+		if (!is_null($userObject->data->fid) && is_numeric($userObject->data->fid)) {
+			$isAllow = $userObject->checkUserPermission("delete_comments", $userObject->data->fid);
+				if ($isAllow) {
+					$result = $this->deleteByParams("`fid` = :i AND `fauthor_id` = :i",
+													array($commentId, $userObject->data->fid));
+					if (isset($_POST['newsId']) && is_numeric($_POST['newsId'])) {
+						$category = strip_tags(trim($_POST['category']));
+						header("Location: /".$category."/show/".$_POST['newsId']);
+						exit;
+					} else {
+						header("Location: /error/message/15");
+						exit;
+					}
+				} else {
+					header("Location: /error/message/20");
+					exit();
+				}
 		} else {
 			header("Location: /error/message/14");
 			exit;

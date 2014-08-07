@@ -4,12 +4,12 @@
 			if (!is_null($dataSet) && $dataSet[0]->fid != null) { ?>
 	<div class="content-item-block">
 		<?php
-				foreach ($dataSet as $record) {
-					echo "<input type='hidden' name='newsId' value='{$record->fid}'>";
-					echo "<h3>".htmlspecialchars($record->ftitle)."</h3>";
-					echo "<div class='article-info'>Автор: ".htmlspecialchars($record->fname)." | ".
-							date("d.m.Y", strtotime($record->fcreate_date))."</div>";
-					echo "<p>".$record->fnews_text."</p>";
+			foreach ($dataSet as $record) {
+				echo "<input type='hidden' name='newsId' value='{$record->fid}'>";
+				echo "<h3>".htmlspecialchars($record->ftitle)."</h3>";
+				echo "<div class='article-info'>Автор: ".htmlspecialchars($record->fname)." | ".
+						date("d.m.Y", strtotime($record->fcreate_date))."</div>";
+				echo "<p>".$record->fnews_text."</p>";
 		?>
 		<table>
 			<tbody>
@@ -39,7 +39,7 @@
 				<?php echo date("d.m.Y | H:i:s", strtotime($comment->fcreate_date)); ?>
 			</div>
 				<?php
-					if (isset($this->user->fid) && $comment->fauthor_id == $this->user->fid) { ?>
+					if (isset($this->user->data->fid) && $comment->fauthor_id == $this->user->data->fid) { ?>
 						<div class="edit-panel">
 							<ul>
 								<li><button class="edit-btn" value="<?php echo $comment->fid; ?>"></button></li>
@@ -60,19 +60,22 @@
 				</div>
 		<?php
 			}
-					if (!empty($this->user->fid)  && !empty($this->user->fname)) { ?>
-						<p>Оставить комментарий:</p>
-						<form action="/comments/leave/news" method="POST">
-							<input type="hidden" name="newsId" value="<?php echo $record->fid; ?>">
-							<input type="hidden" name="category" value="news">
-							<div class="textarea-wrapper">
-								<textarea name="commentText"></textarea>
-							</div>
-							<input type="submit" value="Комментировать" name="commentButton">
-						</form>
-<?php
+				if (!empty($this->user->data->fid)  && is_numeric($this->user->data->fid)) { 
+					$isAllow = $this->user->checkUserPermission("leave_comments", $this->user->data->fid);
+					if ($isAllow) {	?>
+					<p>Оставить комментарий:</p>
+					<form action="/comments/leave/news" method="POST">
+						<input type="hidden" name="newsId" value="<?php echo $record->fid; ?>">
+						<input type="hidden" name="category" value="news">
+						<div class="textarea-wrapper">
+							<textarea name="commentText"></textarea>
+						</div>
+						<input type="submit" value="Комментировать" name="commentButton">
+					</form>
+		<?php
 					}
-				} ?>
+				}
+			} ?>
 	</div>
 <?php		} else {?>
 				<div class="content-item-block no-bottom-border">
