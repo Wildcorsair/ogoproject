@@ -21,7 +21,7 @@
 				На выходе получаем массив, который гарантировано
 				имеет три элемента (имя контроллера, имя экшена и параметр)
 			*/
-			$defaultParts = array(0 =>"news", 1 =>"index", 2 =>"default");
+			$defaultParts = array(0 =>"news", 1 =>"index", 2 =>"default", 3 => "default");
 			if (!empty($_GET['route'])) {
 				$route = rtrim($_GET['route'], "/");
 				setcookie("currRoute", $route, time()+3600, '/');
@@ -39,7 +39,7 @@
 					то возвращаем исходный массив, но изменив в нем те 
 					элементы которые есть в полученом массиве 
 				*/
-				if (count($routeParts) < 3) {
+				if (count($routeParts) < 4) {
 					for ($i=0; $i < count($routeParts); $i++) { 
 						
 						$defaultParts[$i] = $routeParts[$i];
@@ -56,6 +56,7 @@
 			$fullPath = ROOT."/apps/controllers/".ucfirst($this->routeParts[0]).".class.php";
 			$action = $this->routeParts[1];
 			$param = $this->routeParts[2];
+			$errorNo = $this->routeParts[3];
 			try {
 				if (file_exists($fullPath)) {
 					//include_once($fullPath);
@@ -63,7 +64,7 @@
 					$this->controller = new $this->routeParts[0]();
 					
 					if (method_exists($this->controller, $action)) {
-						$this->controller->$action($param);
+						$this->controller->$action($param, $errorNo);
 					} else {
 						throw new Exception("Error: No action found!");
 					}

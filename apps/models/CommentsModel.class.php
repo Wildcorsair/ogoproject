@@ -36,7 +36,8 @@ class CommentsModel extends BDatabase {
 						header("Location: /".$category."/show/".$_POST['newsId']);
 						exit();
 					} else {
-						header("Location: /error/message/16");
+						header("Location: /".$category."/show/".$_POST['newsId']."/1");
+						//header("Location: /error/message/16");
 						exit();
 					}
 				}
@@ -60,7 +61,8 @@ class CommentsModel extends BDatabase {
 						header("Location: /".$category."/show/".$_POST['newsId']);
 						exit();
 					} else {
-						header("Location: /error/message/16");
+						header("Location: /".$category."/show/".$_POST['newsId']."/2");
+						//header("Location: /error/message/16");
 						exit();
 					}
 				} else {

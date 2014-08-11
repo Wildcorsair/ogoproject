@@ -32,9 +32,15 @@
 
 
 			<div id="comments-block">
-				<div id='show-error-msg' name="#anchor">
-					Ошибочка если что! %-)
-				</div>	
+				<a name="move"></a>
+				<?php
+					if (!empty($this->errorNo)) { ?>
+						<div id='show-error-msg'>
+							Ошибочка если что! %-)
+						</div>
+				<?php
+					}
+				?>	
 				<p>Комментарии:</p>
 				<?php
 					$dataSet = $this->model->commentsObject->getComments($this->articleId);
@@ -72,14 +78,13 @@
 							$isAllow = $this->user->checkUserPermission("leave_comments", $this->user->data->fid);
 							if ($isAllow) { ?>
 								<p>Оставить комментарий:</p>
-								<form action="/comments/leave/materials" method="POST">
+								<form action="/comments/leave/materials#move" method="POST">
 									<input type="hidden" name="newsId" value="<?php echo $record->fid; ?>">
 									<input type="hidden" name="category" value="materials">
 									<div class="textarea-wrapper">
 										<textarea name="commentText"></textarea>
 									</div>
 									<input type="submit" value="Комментировать" name="commentButton">
-									<a name="#anchor">
 								</form>
 <?php
 						}

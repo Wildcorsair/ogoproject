@@ -27,6 +27,7 @@
 		</table>
 	</div>
 	<div id="comments-block">
+		<a name="move"></a>
 		<p>Комментарии:</p>
 		<?php
 			$dataSet = $this->model->commentsObject->getComments($this->newsId);
@@ -64,7 +65,7 @@
 					$isAllow = $this->user->checkUserPermission("leave_comments", $this->user->data->fid);
 					if ($isAllow) {	?>
 					<p>Оставить комментарий:</p>
-					<form action="/comments/leave/news" method="POST">
+					<form action="/comments/leave/news#move" method="POST">
 						<input type="hidden" name="newsId" value="<?php echo $record->fid; ?>">
 						<input type="hidden" name="category" value="news">
 						<div class="textarea-wrapper">

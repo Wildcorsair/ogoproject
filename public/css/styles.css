@@ -115,6 +115,14 @@ div.input-wrapper>input[type="text"]:focus, div.input-wrapper>input[type="passwo
 	height: 32px;
 }
 
+/*#back-form {
+	text-align: center;
+}*/
+
+#back-form>form>input[type="submit"] {
+	margin-right: 220px;
+}
+
 span#registration-href {
 	height: 18px;
 	margin-top: 6px;

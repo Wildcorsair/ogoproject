@@ -19,8 +19,6 @@
 					<div id="login-form-block">
 						<?php 
 							$this->user->isUserAuthorized();
-							/*echo get_class($this);
-							echo get_class($this->userObj);*/
 							if (!empty($this->user->data->fid)  && !empty($this->user->data->fname)) { ?>
 								<form action="/authorization/logout" method="POST">
 									<div id="user-block">
