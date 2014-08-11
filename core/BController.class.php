@@ -1,6 +1,6 @@
 <?php 
 
-class BController {
+class BController extends Error{
 	public $user;
 	public $model;
 	public $content;

@@ -36,7 +36,9 @@
 				<?php
 					if (!empty($this->errorNo)) { ?>
 						<div id='show-error-msg'>
-							Ошибочка если что! %-)
+							<?php
+								$this->showErrorMessage($this->errorNo);
+							?>
 						</div>
 				<?php
 					}

@@ -1,11 +1,10 @@
 <?php
-	include_once ("DataAccess.class.php");
 
 	class BDatabase extends DataAccess {
 		public $uid;
 
 		public function __construct() {
-			parent::__construct("localhost", "root", "k13ju357", "ogoBase");
+			parent::__construct("localhost", "root", "", "ogoBase");
 		}
 
 		public function dateConvert($dateString) {

@@ -23,8 +23,8 @@ class CommentsModel extends BDatabase {
 	}
 
 	public function leave($category, $userObject) {
-		$userObject->isUserAuthorized();
-		if (!is_null($userObject->data->fid) && is_numeric($userObject->data->fid)) {
+		//!is_null($userObject->data->fid) && is_numeric($userObject->data->fid)
+		if ($userObject->isUserAuthorized()) {
 			$isAllow = $userObject->checkUserPermission("leave_comments", $userObject->data->fid);
 				if ($isAllow) {
 					$commentText = strip_tags(trim($_POST['commentText']));
@@ -36,13 +36,13 @@ class CommentsModel extends BDatabase {
 						header("Location: /".$category."/show/".$_POST['newsId']);
 						exit();
 					} else {
-						header("Location: /".$category."/show/".$_POST['newsId']."/1");
-						//header("Location: /error/message/16");
+						header("Location: /".$category."/show/".$_POST['newsId']."/16");
 						exit();
 					}
 				}
 		} else {
-			header("Location: /error/message/14");
+			header("Location: /".$category."/show/".$_POST['newsId']."/14");
+			//header("Location: /error/message/14");
 			exit;
 		}
 
