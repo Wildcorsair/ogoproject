@@ -1,7 +1,6 @@
 <?php
 
 	class Router {
-
 		public $routeParts = array();
 
 		public function __construct() {

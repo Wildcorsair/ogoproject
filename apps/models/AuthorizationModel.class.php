@@ -5,7 +5,6 @@ class AuthorizationModel extends BDatabase {
 	public $primaryKey = "fid";	
 
 	public function getBackRoute() {
-		var_dump($_POST['backRoute']);
 		if (isset($_POST['backRoute'])) {
 			return strip_tags(trim($_POST['backRoute']));
 		} else {

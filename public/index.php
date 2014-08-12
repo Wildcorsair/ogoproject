@@ -23,7 +23,7 @@
 								<form action="/authorization/logout" method="POST">
 									<div id="user-block">
 										<input type="text" name="backRoute" 
-												value="<?php echo $_GET['route'] ? $_GET['route'] : '/'; ?>">
+												value="<?php if (isset($_GET['route'])) {echo $_GET['route'];} else {echo '';} ?>">
 										Добро пожаловать,&nbsp;<span class="user-name"><?php echo $this->user->data->fname; ?></span>
 									</div>
 									<input type="submit" name="logoutButton" value="Выйти">
@@ -33,7 +33,7 @@
 								<form action="/authorization/login" method="POST">
 									<div class="input-wrapper">
 										<input type="text" name="backRoute" 
-												value="<?php echo $_GET['route'] ? $_GET['route'] : '/'; ?>">
+												value="<?php if (isset($_GET['route'])) {echo $_GET['route'];} else {echo '';} ?>">
 										<input type="text" name="userEmail" value="Email адрес">
 									</div>
 									<div class="input-wrapper">
