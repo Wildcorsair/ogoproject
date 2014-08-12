@@ -21,8 +21,6 @@ class User {
 	}
 
 	public function isUserAuthorized() {
-		/*$dataSet = $this->model->getAuthorizedUserData();
-		return $dataSet;*/
 		$this->data = $this->model->getAuthorizedUserData();
 	}
 }

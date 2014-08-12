@@ -1,5 +1,5 @@
 <?php 
-	error_reporting(-1);
+	error_reporting(E_ALL);
 	define ("ROOT", $_SERVER['DOCUMENT_ROOT']);
 	
 	function __autoload ($className) {
