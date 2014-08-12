@@ -17,11 +17,13 @@
 			<div id="top-line">
 				<div id="top-block-center">
 					<div id="login-form-block">
-						<?php 
+						<?php
 							$this->user->isUserAuthorized();
-							if (!empty($this->user->data->fid)  && !empty($this->user->data->fname)) { ?>
+							if ($this->user->isAuthorized) { ?>
 								<form action="/authorization/logout" method="POST">
 									<div id="user-block">
+										<input type="text" name="backRoute" 
+												value="<?php echo $_GET['route'] ? $_GET['route'] : '/'; ?>">
 										Добро пожаловать,&nbsp;<span class="user-name"><?php echo $this->user->data->fname; ?></span>
 									</div>
 									<input type="submit" name="logoutButton" value="Выйти">
@@ -30,6 +32,8 @@
 							} else { ?>
 								<form action="/authorization/login" method="POST">
 									<div class="input-wrapper">
+										<input type="text" name="backRoute" 
+												value="<?php echo $_GET['route'] ? $_GET['route'] : '/'; ?>">
 										<input type="text" name="userEmail" value="Email адрес">
 									</div>
 									<div class="input-wrapper">
@@ -60,7 +64,7 @@
 						<li><a href="/materials">МАТЕРИАЛЫ</a></li>
 						<li><a href="/contacts">КОНТАКТЫ</a></li>
 						<?php
-							if (!empty($this->user->data->fid)) {
+							if ($this->user->isAuthorized) {
 								$isAllow = $this->user->checkUserPermission("cpanel_access", $this->user->data->fid);
 								if ($isAllow) {
 									echo "<li><a href='/cpanel'>CPANEL</a></li>";
@@ -95,13 +99,6 @@
 				<?php
 					$this->render("popNews", true, true);
 				?>
-				<!--<div class="block-content">
-					<ul>
-						<li><a href="/materials/read">Продажа акционных модемов</a></li>
-						<li><a href="#">Новые тарифные планы</a></li>
-						<li><a href="#">Переход на протокол DHCP</a></li>
-					</ul>
-				</div>-->
 			</div>
 			<div class="right-block">
 				<div class="block-title">
@@ -110,13 +107,6 @@
 				<?php
 					$this->render("popMaterials", true, true);
 				?>
-				<!--<div class="block-content">
-					<ul>
-						<li><a href="#">Настройка модема ZTE H108L под протокол DHCP</a></li>
-						<li><a href="#">Потребительский рекламный макет: бюджет на размещение или сущность и концепция маркетинговой программы</a></li>
-						<li><a href="#">Почему редко соответствует рыночным ожиданиям стимулирование комьюнити?</a></li>
-					</ul>
-				</div>-->
 			</div>
 			<div class="right-block">
 				<div class="block-title">

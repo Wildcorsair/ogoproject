@@ -4,6 +4,15 @@ class AuthorizationModel extends BDatabase {
 	public $tableName = "ogo_users";
 	public $primaryKey = "fid";	
 
+	public function getBackRoute() {
+		var_dump($_POST['backRoute']);
+		if (isset($_POST['backRoute'])) {
+			return strip_tags(trim($_POST['backRoute']));
+		} else {
+			return "/";
+		}
+	}
+	
 	public function login() {
 		if (isset($_POST['loginButton'])) {
 			$login = $_POST['userEmail'];
@@ -18,22 +27,16 @@ class AuthorizationModel extends BDatabase {
 	public function logout() {
 		if (isset($_COOKIE['UID'])) {
 			setcookie("UID", "", 0, "/");
-			if (isset($_COOKIE['currRoute'])) {
-				header("Location: /".$_COOKIE['currRoute']);
-				exit;	
-			} else {
-				header("Location: /");
-				exit;
-			}
 		}
+		$backRoute = $this->getBackRoute();
+		header("Location: /{$backRoute}");
+		exit();
 	}
 
 	public function checkUser($login, $email, $password) {
 		$fields = array("fsalt");
 		$condition = array("`flogin` = :s OR `fuserMail` = :s", array($login, $email));
 		$data = $this->select($fields, $condition);
-		//$this->getQueryString();
-		//var_dump($data);
 		if (!empty($data)) {
 			$rec = $data[0];
 			$fields = array("fid", "flogin", "fsalt", "fname", "fbanned", "factivation");
@@ -41,7 +44,6 @@ class AuthorizationModel extends BDatabase {
 						array($login, $email, $rec->fsalt, $password));
 			$limit = "0, 1";
 			$data = $this->select($fields, $condition, $limit);
-			//$this->getQueryString();
 			if (!empty($data)) {
 				$rec = $data[0];
 				if ($rec->factivation != 33) {
@@ -61,12 +63,13 @@ class AuthorizationModel extends BDatabase {
 						if (substr($_COOKIE['currRoute'], 0, 5) == 'error') {
 							header("Location: /");
 							exit;
-						} 
-						header("Location: /".$_COOKIE['currRoute']);
-						exit;	
+						}
+						$backRoute = $this->getBackRoute();
+						header("Location: /{$backRoute}");
+						exit();
 					} else {
 						header("Location: /");
-						exit;
+						exit();
 					}
 				}
 			} else {

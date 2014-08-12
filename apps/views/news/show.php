@@ -28,6 +28,16 @@
 	</div>
 	<div id="comments-block">
 		<a name="move"></a>
+		<?php
+			if (!empty($this->errorNo)) { ?>
+				<div id='show-error-msg'>
+				<?php
+					$this->showErrorMessage($this->errorNo);
+				?>
+				</div>
+		<?php
+			}
+		?>	
 		<p>Комментарии:</p>
 		<?php
 			$dataSet = $this->model->commentsObject->getComments($this->newsId);
@@ -40,14 +50,16 @@
 				<?php echo date("d.m.Y | H:i:s", strtotime($comment->fcreate_date)); ?>
 			</div>
 				<?php
-					if (isset($this->user->data->fid) && $comment->fauthor_id == $this->user->data->fid) { ?>
-						<div class="edit-panel">
-							<ul>
-								<li><button class="edit-btn" value="<?php echo $comment->fid; ?>"></button></li>
-								<li><button class="delete-btn" value="<?php echo $comment->fid; ?>"></button></li>
-							</ul>
-						</div>
+					if ($this->user->isAuthorized) {
+						if (isset($this->user->data->fid) && $comment->fauthor_id == $this->user->data->fid) { ?>
+							<div class="edit-panel">
+								<ul>
+									<li><button class="edit-btn" value="<?php echo $comment->fid; ?>"></button></li>
+									<li><button class="delete-btn" value="<?php echo $comment->fid; ?>"></button></li>
+								</ul>
+							</div>
 				<?php
+						}
 					}
 				?>
 			<div class="clear"></div>
@@ -61,7 +73,7 @@
 				</div>
 		<?php
 			}
-				if (!empty($this->user->data->fid)  && is_numeric($this->user->data->fid)) { 
+				if ($this->user->isAuthorized) { 
 					$isAllow = $this->user->checkUserPermission("leave_comments", $this->user->data->fid);
 					if ($isAllow) {	?>
 					<p>Оставить комментарий:</p>
@@ -80,7 +92,10 @@
 	</div>
 <?php		} else {?>
 				<div class="content-item-block no-bottom-border">
-					<?php header("Location: /error/message/15"); exit;//echo "Ошибка: Нет такой новости!"; ?>
+					<?php 
+						$this->showErrorMessage(15);
+						//header("Location: /error/message/15"); exit;//echo "Ошибка: Нет такой новости!";
+					?>
 				</div>
 <?php		} ?>
 </div>

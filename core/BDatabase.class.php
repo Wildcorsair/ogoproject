@@ -1,5 +1,4 @@
 <?php
-	include_once ("DataAccess.class.php");
 
 	class BDatabase extends DataAccess {
 		public $uid;

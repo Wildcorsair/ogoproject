@@ -36,7 +36,9 @@
 				<?php
 					if (!empty($this->errorNo)) { ?>
 						<div id='show-error-msg'>
-							Ошибочка если что! %-)
+							<?php
+								$this->showErrorMessage($this->errorNo);
+							?>
 						</div>
 				<?php
 					}
@@ -52,17 +54,19 @@
 					<div class="comment-datetime">
 						<?php echo date("d.m.Y | H:i:s", strtotime($comment->fcreate_date)); ?>
 					</div>
-						<?php
+					<?php
+						if ($this->user->isAuthorized) {
 							if (isset($this->user->data->fid) && $comment->fauthor_id == $this->user->data->fid) { ?>
 								<div class="edit-panel">
 									<ul>
-										<li><button class="edit-btn" value='<?php echo $comment->fid; ?>'></button></li>
-										<li><button  class="delete-btn" value="<?php echo $comment->fid; ?>"></button></li>
+										<li><button class="edit-btn" value="<?php echo $comment->fid; ?>"></button></li>
+										<li><button class="delete-btn" value="<?php echo $comment->fid; ?>"></button></li>
 									</ul>
 								</div>
-						<?php
+					<?php
 							}
-						?>
+						}
+					?>
 					<div class="clear"></div>
 					<div class="comment-text"><?php echo htmlspecialchars($comment->ftext); ?></div>	
 				</div>
@@ -74,7 +78,7 @@
 						</div>
 				<?php
 					}
-						if (!empty($this->user->data->fid)  && is_numeric($this->user->data->fid)) { 
+						if ($this->user->isAuthorized) { 
 							$isAllow = $this->user->checkUserPermission("leave_comments", $this->user->data->fid);
 							if ($isAllow) { ?>
 								<p>Оставить комментарий:</p>
@@ -94,7 +98,9 @@
 <?php
 		} else { ?>
 			<div class="content-item-block no-bottom-border">
-					<?php header("Location: /error/message/17"); exit;//echo "Ошибка: Нет такой статьи!"; ?>
+					<?php 
+						$this->showErrorMessage(17);
+					?>
 			</div>
 <?php 	} ?>
 </div>

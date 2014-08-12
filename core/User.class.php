@@ -3,6 +3,7 @@
 class User {
 	public $model;
 	public $data;
+	public $isAuthorized;
 
 	public function __construct () {
 		/*
@@ -21,7 +22,13 @@ class User {
 	}
 
 	public function isUserAuthorized() {
-		$this->data = $this->model->getAuthorizedUserData();
+		$dataSet = $this->model->getAuthorizedUserData();
+		if (!empty($dataSet)) {
+			$this->data = $dataSet;
+			$this->isAuthorized = true;
+		} else {
+			$this->isAuthorized = false;
+		}
 	}
 }
 

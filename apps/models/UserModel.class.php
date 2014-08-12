@@ -15,9 +15,11 @@ class UserModel extends BDatabase {
 						LIMIT 0, 1";
 			$args = array($cookieKey);
 			$dataSet = $this->selectBySql($query, $args);
-			$userData = $dataSet[0];
-			return $userData;
+			if (is_array($dataSet)) {
+				$dataSet = $dataSet[0];
+			}
 		}
+		return $dataSet;
 	}
 	
 	public function userCheckPermissions($permission, $userId) {
