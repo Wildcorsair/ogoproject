@@ -32,7 +32,6 @@
 	</div>
 	<?php
 			}
-		}
 	?>
 	<div id="page-counter-wrapper">
 		<ul>
@@ -41,4 +40,7 @@
 			?>
 		</ul>
 	</div>
+	<?php
+		}
+	?>
 </div>

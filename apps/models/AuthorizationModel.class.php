@@ -1,14 +1,31 @@
 <?php
 
+/*
+*	Класс модели авторизации
+*
+*/
+
 class AuthorizationModel extends BDatabase {
 	public $tableName = "ogo_users";
 	public $primaryKey = "fid";	
 
+	/*
+	*	Функция получения пути для редиректа после
+	*	авторизации, если перед этим было выведено
+	*	информационное сообщение, то делаем редирект
+	*	в корневой каталог "/" 
+	*/
 	public function getBackRoute() {
-		if (isset($_POST['backRoute'])) {
-			return strip_tags(trim($_POST['backRoute']));
+		if (isset($_POST['backRoute']) && !empty($_POST['backRoute'])) {
+			$backRoute = '/'.strip_tags(trim($_POST['backRoute']));
+			$isErrorPage = strpos($backRoute, 'authorization');
+			if ($isErrorPage === false) {
+				return $backRoute;
+			} else {
+				return '/';
+			}
 		} else {
-			return "/";
+			return '/';
 		}
 	}
 	
@@ -28,11 +45,12 @@ class AuthorizationModel extends BDatabase {
 			setcookie("UID", "", 0, "/");
 		}
 		$backRoute = $this->getBackRoute();
-		header("Location: /{$backRoute}");
+		header("Location: {$backRoute}");
 		exit();
 	}
 
 	public function checkUser($login, $email, $password) {
+		$backRoute = $this->getBackRoute();
 		$fields = array("fsalt");
 		$condition = array("`flogin` = :s OR `fuserMail` = :s", array($login, $email));
 		$data = $this->select($fields, $condition);
@@ -46,10 +64,10 @@ class AuthorizationModel extends BDatabase {
 			if (!empty($data)) {
 				$rec = $data[0];
 				if ($rec->factivation != 33) {
-					header("Location: /error/message/12");
+					header("Location: /authorization/index/12");
 					exit;
 				} else if ($rec->fbanned == 1) {
-					header("Location: /error/message/13");
+					header("Location: /authorization/index/13");
 					exit;
 				} else {
 					$key = $this->generateKey();
@@ -58,26 +76,17 @@ class AuthorizationModel extends BDatabase {
 					
 					$this->fkey = $key;
 					$this->updateById($rec->fid);
-					if (isset($_COOKIE['currRoute'])) {
-						if (substr($_COOKIE['currRoute'], 0, 5) == 'error') {
-							header("Location: /");
-							exit;
-						}
-						$backRoute = $this->getBackRoute();
-						header("Location: /{$backRoute}");
-						exit();
-					} else {
-						header("Location: /");
-						exit();
-					}
+					
+					header("Location: {$backRoute}");
+					exit();
 				}
 			} else {
-				header("Location: /error/message/11");
-				exit;
+				header("Location: /authorization/index/11");
+				exit();
 			}
 		} else {
-			header("Location: /error/message/11");
-			exit;
+			header("Location: /authorization/index/11");
+			exit();
 		}
 	}
 

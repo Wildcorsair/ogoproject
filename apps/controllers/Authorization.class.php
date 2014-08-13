@@ -2,9 +2,11 @@
 
 class Authorization extends BController {
 
-	public function index() {
-		header("Location: /");
-		exit;
+	public function index($param) {
+		/*header("Location: /");
+		exit;*/
+		$this->messageId = $param;
+		$this->render('index');
 	}
 
 	public function login() {

@@ -58,7 +58,6 @@
 			$errorNo = $this->routeParts[3];
 			try {
 				if (file_exists($fullPath)) {
-					//include_once($fullPath);
 					require_once($fullPath);
 					$this->controller = new $this->routeParts[0]();
 					

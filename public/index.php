@@ -18,12 +18,12 @@
 				<div id="top-block-center">
 					<div id="login-form-block">
 						<?php
+							if (isset($_GET['route'])) {$route = $_GET['route'];} else {$route = '';}
 							$this->user->isUserAuthorized();
 							if ($this->user->isAuthorized) { ?>
 								<form action="/authorization/logout" method="POST">
 									<div id="user-block">
-										<input type="text" name="backRoute" 
-												value="<?php if (isset($_GET['route'])) {echo $_GET['route'];} else {echo '';} ?>">
+										<input type="hidden" name="backRoute"	value="<?php echo $route; ?>">
 										Добро пожаловать,&nbsp;<span class="user-name"><?php echo $this->user->data->fname; ?></span>
 									</div>
 									<input type="submit" name="logoutButton" value="Выйти">
@@ -32,8 +32,7 @@
 							} else { ?>
 								<form action="/authorization/login" method="POST">
 									<div class="input-wrapper">
-										<input type="text" name="backRoute" 
-												value="<?php if (isset($_GET['route'])) {echo $_GET['route'];} else {echo '';} ?>">
+										<input type="hidden" name="backRoute" value="<?php echo $route; ?>">
 										<input type="text" name="userEmail" value="Email адрес">
 									</div>
 									<div class="input-wrapper">
