@@ -20,7 +20,7 @@ require_once("CommentsModel.class.php");
 				$pageCount = 5;
 				$pageCount = $this->getPageCount();
 				if ($currentPage <= 0 or $currentPage > $pageCount or !is_numeric($currentPage)) {
-					throw new Exception ("Error 404! Нет такой страницы материалов!");
+					throw new Exception ("Error 404! Нет такой страницы!");
 				}
 				$offset = ($currentPage - 1) * $this->articlesPerPage;
 				$data = null;

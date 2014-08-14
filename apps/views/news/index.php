@@ -20,9 +20,9 @@
 						<a href="/news/show/<?php echo $record->fid; ?>">Читать&nbsp;далее...</a>
 					</div>
 				</div>
-				<?php
+		<?php
 			}
-		} ?>
+		?>
 	<div id="page-counter-wrapper">
 		<ul>
 			<?php
@@ -30,4 +30,7 @@
 			?>
 		</ul>
 	</div>
+<?php
+	}
+?>
 </div>
