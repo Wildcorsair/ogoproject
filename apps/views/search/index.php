@@ -16,13 +16,21 @@
 					<div class="content-item-block">
 						<div class="">
 							<h4><?php echo htmlspecialchars($record->ftitle); ?></h4>
+							<div>Категория: <?php 
+												if ($record->fcategory == 1) {
+													echo "Новости";
+												} else {
+													echo "Материалы";
+												}
+											?>
+							</div>
 							<div class="article-preview-text"><?php echo htmlspecialchars($record->fsummary_text); ?>&nbsp;
 							<?php 
 								if ($record->fcategory == 1) { ?>
 									<a href="/news/show/<?php echo $record->fid; ?>">Читать&nbsp;далее...</a></div>
-							<?php } else { ?>
+						<?php 	} else { ?>
 									<a href="/materials/show/<?php echo $record->fid; ?>">Читать&nbsp;далее...</a></div>
-							<?php }?>
+						<?php 	} ?>
 						</div>
 					</div>
 		<?php	

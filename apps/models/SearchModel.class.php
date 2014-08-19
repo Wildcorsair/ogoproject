@@ -12,8 +12,8 @@ class SearchModel extends BDatabase {
 			if (isset($_POST['searchField'])) {
 				$findPhraze = strip_tags(trim($_POST['searchField']));
 				$q = "SELECT `fid`,
-							 `ftitle`,
-							 `fsummary_text`,
+							`ftitle`,
+							`fsummary_text`,
 							`fcategory`
 						FROM `ogo_news`
 						WHERE MATCH (`ftitle`, `fnews_text`) AGAINST (:s)
