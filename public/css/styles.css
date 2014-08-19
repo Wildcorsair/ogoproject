@@ -1035,6 +1035,27 @@ button.last {
 	margin-left: 6px;
 }
 
+#search-result-caption {
+	color: #437356;
+	margin-top: 25px;
+	padding-bottom: 25px;
+	font-family: Arial, Tahoma, Verdana, sans-serif;
+	font-size: 1.3em;
+	font-weight: bold;
+	border-bottom: 1px solid #ccc;
+}
+
+#search-results {
+	margin-top: 10px;
+	color: #000;
+	font-size: 0.7em;
+	font-weight: normal;
+}
+
+#search-results>span {
+	color: #437356;
+}
+
 /*==================================*/
 /*		   Edit panel styles        */
 /*==================================*/

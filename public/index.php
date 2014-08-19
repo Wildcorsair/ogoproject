@@ -83,7 +83,7 @@
 			?>
 			<div class="right-block">
 				<!--<div class="search-conteiner">-->
-					<form action="search.php" method="POST">
+					<form action="/search/index/1" method="POST">
 						<div class="search-input-wrapper">
 							<input type="text" value="Поиск по сайту" name="searchField">
 							<input type="submit" value="" name="search-button">
