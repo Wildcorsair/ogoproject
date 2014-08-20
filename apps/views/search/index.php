@@ -6,17 +6,16 @@
 					Результаты поиска
 					<div id="search-results">
 		<?php 
-						echo "<span>Вы искали: </span>".$_POST['searchField']."<br>";
-						echo "<span>Найдено совпадений: </span>".count($dataSet);
+						echo "<span>Вы искали: </span><span class='italic'>".$_POST['searchField']."</span><br>";
+						echo "<span>Найдено совпадений: </span><span class='italic'>".count($dataSet)."</span>";
 		?>
 					</div>
 				</div>
 		<?php
 				foreach ($dataSet as $record) { ?>
 					<div class="content-item-block">
-						<div class="">
-							<h4><?php echo htmlspecialchars($record->ftitle); ?></h4>
-							<div>Категория: <?php 
+							<h3><?php echo htmlspecialchars($record->ftitle); ?></h3>
+							<div class="material-category">Категория: <?php 
 												if ($record->fcategory == 1) {
 													echo "Новости";
 												} else {
@@ -27,11 +26,11 @@
 							<div class="article-preview-text"><?php echo htmlspecialchars($record->fsummary_text); ?>&nbsp;
 							<?php 
 								if ($record->fcategory == 1) { ?>
-									<a href="/news/show/<?php echo $record->fid; ?>">Читать&nbsp;далее...</a></div>
+									<a href="/news/show/<?php echo $record->fid; ?>">Читать&nbsp;далее...</a>
 						<?php 	} else { ?>
-									<a href="/materials/show/<?php echo $record->fid; ?>">Читать&nbsp;далее...</a></div>
+									<a href="/materials/show/<?php echo $record->fid; ?>">Читать&nbsp;далее...</a>
 						<?php 	} ?>
-						</div>
+							</div>
 					</div>
 		<?php	
 				}
