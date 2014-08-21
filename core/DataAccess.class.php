@@ -246,10 +246,12 @@ class DataAccess {
 		return $this->openSQL($query);
 	}
 
-	//	@param fields 	= array or string,
-	//	@param conditions = array, 
-	//	@param limit 		= array or string
-	//	function select($fields, $conditions=null, $limit=null);
+	/**
+		@param fields 	= array or string,
+		@param conditions = array, 
+		@param limit 		= array or string
+		function select($fields, $conditions=null, $limit=null);
+	*/
 	
 	public function select($fields, $conditions=null, $limit=null) {
 		//	Обрабавтываем имена полей

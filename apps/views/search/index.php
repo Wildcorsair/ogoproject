@@ -1,13 +1,13 @@
 <div id="content-block">
 		<?php
-			$dataSet = $this->model->findAll();
+			$dataSet = $this->model->findAll($this->currentPage);
 			if (!empty($dataSet)) { ?>
 				<div id="search-result-caption">
 					Результаты поиска
 					<div id="search-results">
 		<?php 
-						echo "<span>Вы искали: </span><span class='italic'>".$_POST['searchField']."</span><br>";
-						echo "<span>Найдено совпадений: </span><span class='italic'>".count($dataSet)."</span>";
+						echo "<span>Вы искали: </span><span class='italic'>".$_GET['searchField']."</span><br>";
+						echo "<span>Найдено совпадений: </span><span class='italic'>".$this->model->recordsCount()."</span>";
 		?>
 					</div>
 				</div>
