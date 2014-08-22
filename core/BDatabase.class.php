@@ -61,21 +61,6 @@
 			echo "</tbody></table></div><div class='grid-footer'>Записей 1 из 23<div></div>";
 		}
 
-		/*public function isAuthorized() {
-			$dataSet = null;
-			if (isset($_COOKIE['UID'])) {
-				$cookieKey = $_COOKIE['UID'];
-				$query = "SELECT `fid`, `fname`
-							FROM `ogo_users`
-							WHERE md5(CONCAT(`fsalt`, `fkey`)) = :s
-							LIMIT 0, 1";
-				$args = array($cookieKey);
-				$dataSet = $this->selectBySql($query, $args);
-				$userData = $dataSet[0];
-				return $userData;
-			}
-		}*/
-
 		public function emailValidate($email) {
 			//"|^[-0-9a-z_\.]+@[-0-9a-z_^\.]+\.[a-z]{2,6}$|i"
 			if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
