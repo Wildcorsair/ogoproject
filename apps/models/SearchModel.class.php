@@ -6,13 +6,14 @@ class SearchModel extends BDatabase {
 	public $primaryKey = "fid";
 	public $category = "search";
 	public $newsPerPage = 3;
+	public $findPhraze;
 
 	public function findAll($currentPage) {
 		$data = null;
 		$offset = ($currentPage - 1) * $this->newsPerPage;
-		if (isset($_GET['search-button'])) {
-			if (isset($_GET['searchField'])) {
-				$findPhraze = strip_tags(trim($_GET['searchField']));
+		if (isset($_POST['search-button'])) {
+			if (isset($_POST['searchField']) && $_POST['searchField'] != "Поиск по сайту") {
+				$this->findPhraze = strip_tags(trim($_POST['searchField']));
 				$q = "SELECT `fid`,
 							`ftitle`,
 							`fsummary_text`,
@@ -21,8 +22,21 @@ class SearchModel extends BDatabase {
 						WHERE MATCH (`ftitle`, `fnews_text`) AGAINST (:s)
 						ORDER BY `fcreate_date` DESC
 						LIMIT :i, :i";
-				$cond = array($findPhraze, $offset, $this->newsPerPage);
+				$cond = array($this->findPhraze, $offset, $this->newsPerPage);
 				$data = $this->selectBySql($q, $cond);
+			} else if (isset($_POST['findPhraze'])) {
+				$this->findPhraze = strip_tags(trim($_POST['findPhraze']));
+				var_dump($this->findPhraze);
+				$q = "SELECT `fid`,
+							`ftitle`,
+							`fsummary_text`,
+							`fcategory`
+						FROM `ogo_news`
+						WHERE MATCH (`ftitle`, `fnews_text`) AGAINST (:s)
+						ORDER BY `fcreate_date` DESC
+						LIMIT :i, :i";
+				$cond = array($this->findPhraze, $offset, $this->newsPerPage);
+				$data = $this->selectBySql($q, $cond);				
 			}
 		}
 		return $data;
@@ -30,9 +44,9 @@ class SearchModel extends BDatabase {
 
 	
 	/**
-		Переопределенный метод из модуля DataAccess.class.php
-		модели Новостей и Материалов используют родительский
-		метод определенный в базовом классе
+	*	Переопределенный метод из модуля DataAccess.class.php
+	*	модели Новостей и Материалов используют родительский
+	*	метод определенный в базовом классе
 	*/
 
 	public function getPageCount() {
@@ -46,16 +60,16 @@ class SearchModel extends BDatabase {
 
 	
 	/**
-		Переопределенный метод из модуля DataAccess.class.php
-		модели Новостей и Материалов используют родительский
-		метод определенный в базовом классе
+	*	Переопределенный метод из модуля DataAccess.class.php
+	*	модели Новостей и Материалов используют родительский
+	*	метод определенный в базовом классе
 	*/
 
 	public function recordsCount() {
 		$data = null;
-		if (isset($_GET['search-button'])) {
-			if (isset($_GET['searchField'])) {
-				$findPhraze = strip_tags(trim($_GET['searchField']));
+		if (isset($_POST['search-button'])) {
+			if (isset($_POST['searchField'])) {
+				$findPhraze = strip_tags(trim($_POST['searchField']));
 				$q = "SELECT COUNT(`fid`) AS `count`
 						FROM `ogo_news`
 						WHERE MATCH (`ftitle`, `fnews_text`) AGAINST (:s)

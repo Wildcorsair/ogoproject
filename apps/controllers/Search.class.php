@@ -11,7 +11,6 @@ class Search extends BController {
 		}
 		$this->render("index");
 	}
-
 }
 
 ?>
