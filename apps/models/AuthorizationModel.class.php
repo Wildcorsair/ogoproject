@@ -17,7 +17,8 @@ class AuthorizationModel extends BDatabase {
 	*/
 	public function getBackRoute() {
 		if (isset($_POST['backRoute']) && !empty($_POST['backRoute'])) {
-			$backRoute = '/'.strip_tags(trim($_POST['backRoute']));
+			//$backRoute = '/'.strip_tags(trim($_POST['backRoute']));
+			$backRoute = strip_tags(trim($_POST['backRoute']));
 			$isErrorPage = strpos($backRoute, 'authorization');
 			if ($isErrorPage === false) {
 				return $backRoute;

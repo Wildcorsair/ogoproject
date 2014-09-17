@@ -23,7 +23,7 @@
 			$defaultParts = array(0 =>"news", 1 =>"index", 2 =>"default", 3 => "default");
 			if (!empty($_GET['route'])) {
 				$route = rtrim($_GET['route'], "/");
-				//setcookie("currRoute", $route, time()+3600, '/');
+				setcookie("currRoute", $route, time()+3600, '/');
 				$routeParts = explode("/", $route);
 				for ($i = 0; $i < count($routeParts); $i++) {
 					$part = trim($routeParts[$i]);

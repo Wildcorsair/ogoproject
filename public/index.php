@@ -18,7 +18,7 @@
 				<div id="top-block-center">
 					<div id="login-form-block">
 						<?php
-							if (isset($_GET['route'])) {$route = $_GET['route'];} else {$route = '';}
+							if (isset($_SERVER['REQUEST_URI'])) {$route = $_SERVER['REQUEST_URI'];} else {$route = '';}
 							$this->user->isUserAuthorized();
 							if ($this->user->isAuthorized) { ?>
 								<form action="/authorization/logout" method="POST">
@@ -83,7 +83,7 @@
 			?>
 			<div class="right-block">
 				<!--<div class="search-conteiner">-->
-					<form action="/search/index/1" method="POST">
+					<form action="/search/index/" method="GET">
 						<div class="search-input-wrapper">
 							<input type="text" value="Поиск по сайту" name="searchField">
 							<input type="submit" value="" name="search-button">

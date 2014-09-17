@@ -3,16 +3,13 @@
 		$dataSet = $this->model->findAll($this->currentPage);
 		if (!empty($dataSet)) { ?>
 			<div id="search-result-caption">
-				<form method='POST'>
 				Результаты поиска
 				<div id="search-results">
 	<?php 
 					echo "<span>Вы искали: </span><span class='italic'>".$this->model->findPhraze."</span><br>";
-					echo "<input type='hidden' name='findPhraze' value='".$this->model->findPhraze."'>";
 					echo "<span>Найдено совпадений: </span><span class='italic'>".$this->model->recordsCount()."</span>";
 	?>
 				</div>
-				</form>
 			</div>
 	<?php
 			foreach ($dataSet as $record) { ?>
@@ -37,13 +34,21 @@
 				</div>
 	<?php	
 			}
-		}
 	?>
 	<div id="page-counter-wrapper">
 		<ul>
 			<?php
-				echo $this->model->pageNavigation($this->currentPage, $this->model->category);
+				$searchString = $this->model->makeSearchString();
+				echo $this->model->pageNavigation($this->currentPage, $this->model->category, 5, $searchString);
 			?>
 		</ul>
 	</div>
+	<?php
+		} else { ?>
+			<div class="content-item-block no-bottom-border">
+				<?php $this->showErrorMessage(21); ?>
+			</div>
+	<?php
+		} 
+	?>
 </div>

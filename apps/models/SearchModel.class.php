@@ -11,33 +11,18 @@ class SearchModel extends BDatabase {
 	public function findAll($currentPage) {
 		$data = null;
 		$offset = ($currentPage - 1) * $this->newsPerPage;
-		if (isset($_POST['search-button'])) {
-			if (isset($_POST['searchField']) && $_POST['searchField'] != "Поиск по сайту") {
-				$this->findPhraze = strip_tags(trim($_POST['searchField']));
-				$q = "SELECT `fid`,
-							`ftitle`,
-							`fsummary_text`,
-							`fcategory`
-						FROM `ogo_news`
-						WHERE MATCH (`ftitle`, `fnews_text`) AGAINST (:s)
-						ORDER BY `fcreate_date` DESC
-						LIMIT :i, :i";
-				$cond = array($this->findPhraze, $offset, $this->newsPerPage);
-				$data = $this->selectBySql($q, $cond);
-			} else if (isset($_POST['findPhraze'])) {
-				$this->findPhraze = strip_tags(trim($_POST['findPhraze']));
-				var_dump($this->findPhraze);
-				$q = "SELECT `fid`,
-							`ftitle`,
-							`fsummary_text`,
-							`fcategory`
-						FROM `ogo_news`
-						WHERE MATCH (`ftitle`, `fnews_text`) AGAINST (:s)
-						ORDER BY `fcreate_date` DESC
-						LIMIT :i, :i";
-				$cond = array($this->findPhraze, $offset, $this->newsPerPage);
-				$data = $this->selectBySql($q, $cond);				
-			}
+		if (isset($_GET['searchField']) && $_GET['searchField'] != "Поиск по сайту") {
+			$this->findPhraze = strip_tags(trim($_GET['searchField']));
+			$q = "SELECT `fid`,
+						`ftitle`,
+						`fsummary_text`,
+						`fcategory`
+					FROM `ogo_news`
+					WHERE MATCH (`ftitle`, `fnews_text`) AGAINST (:s)
+					ORDER BY `fcreate_date` DESC
+					LIMIT :i, :i";
+			$cond = array($this->findPhraze, $offset, $this->newsPerPage);
+			$data = $this->selectBySql($q, $cond);
 		}
 		return $data;
 	}
@@ -67,9 +52,8 @@ class SearchModel extends BDatabase {
 
 	public function recordsCount() {
 		$data = null;
-		if (isset($_POST['search-button'])) {
-			if (isset($_POST['searchField'])) {
-				$findPhraze = strip_tags(trim($_POST['searchField']));
+			if (isset($_GET['searchField'])) {
+				$findPhraze = strip_tags(trim($_GET['searchField']));
 				$q = "SELECT COUNT(`fid`) AS `count`
 						FROM `ogo_news`
 						WHERE MATCH (`ftitle`, `fnews_text`) AGAINST (:s)
@@ -77,12 +61,25 @@ class SearchModel extends BDatabase {
 				$cond = array($findPhraze);
 				$data = $this->selectBySql($q, $cond);
 			}
-		}
 		if (is_array($data)) {
 			return $data[0]->count; // return INTEGER value
 		} else {
 			return 0;
 		}
+	}
+
+	/**
+	*	@return string
+	*	@return null
+	*/
+	
+	public function makeSearchString() {
+		if (isset($_GET['searchField']) && $_GET['searchField'] != "Поиск по сайту") {
+			$searchString = "?searchField=".strip_tags(trim($_GET['searchField']));
+			
+			return $searchString;
+		} else 
+			return null;
 	}
 }
 
