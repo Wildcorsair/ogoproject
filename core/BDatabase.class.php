@@ -4,7 +4,7 @@
 		public $uid;
 
 		public function __construct() {
-			parent::__construct("localhost", "root", "", "ogoBase");
+			parent::__construct("localhost", "root", "k13ju357", "ogoBase");
 		}
 
 		public function dateConvert($dateString) {
@@ -45,20 +45,25 @@
 		}
 
 		public function dataGrid($dataSet, $fieldsList) {
-			echo "<div class='grid-frame'><div class='grid-header'>Пользователи</div>";
-			echo "<div class='grid-workspace'><table><thead><tr>";
+			echo "<table class='gray-table'><thead><tr>";
 			foreach ($fieldsList as $fieldName => $fieldCaption) {
-				echo "<td>".$fieldCaption."</td>";
+				echo "<th>".$fieldCaption."</th>";
 			}
-			echo "<td></td></tr></thead><tbody>";
+			echo "<th></th><th></th></tr></thead><tbody>";
 			foreach ($dataSet as $record) {
 				echo "<tr>";
 					foreach ($fieldsList as $fieldName => $fieldCaption) {
 						echo "<td>".$record->$fieldName."</td>";
 					}
-				echo "<td><button>Edit</button></td></tr>";
+				echo "<td class='btn-cont'>
+							<button class='edit' data-value={$record->fid}'></button>
+						</td>
+						<td class='btn-cont'>
+							<button class='delete' data-value={$record->fid}'></button>
+						</td>
+						</tr>";
 			}
-			echo "</tbody></table></div><div class='grid-footer'>Записей 1 из 23<div></div>";
+			echo "</tbody></table>";
 		}
 
 		public function emailValidate($email) {
@@ -85,7 +90,10 @@
 			$res = $this->updateById($newsId);
 		}
 	
-		public function pageNavigation($currentPage, $category, $linkCount=5, $paramStr=null) {
+		public function pageNavigation(	$currentPage,
+										$category,
+										$linkCount=5,
+										$paramStr=null ) {
 			$pageStr = null;
 			$pageCount = $this->getPageCount($category);
 			if (!isset($currentPage) && !is_numeric($currentPage)) {

@@ -37,6 +37,13 @@ class Cpanel extends BController {
 	public function users() {
 		$this->render("users");
 	}
+
+	public function edit($p) {
+		echo $p;
+		if (isset($_GET['id'])) {
+			echo $_GET['id'];
+		}
+	}
 }
 
 ?>
