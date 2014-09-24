@@ -1,6 +1,7 @@
 <?php
 
 class Cpanel extends BController {
+	public $currentPage = 1;
 	public $mainTamplate = "cpanel.php";
 	
 	/*public function render($tamplateName = "index", $nested = false, $common = false) {
@@ -26,7 +27,10 @@ class Cpanel extends BController {
 		$this->render("index");
 	}
 
-	public function news() {
+	public function news($page) {
+		if (is_numeric($page)) {
+			$this->currentPage = $page;
+		}
 		$this->render("news");
 	}
 
@@ -34,7 +38,10 @@ class Cpanel extends BController {
 		$this->render("materials");
 	}
 
-	public function users() {
+	public function users($page) {
+		if (is_numeric($page)) {
+			$this->currentPage = $page;
+		}
 		$this->render("users");
 	}
 

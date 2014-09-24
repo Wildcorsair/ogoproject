@@ -5,7 +5,7 @@
 
 	Автор: Захарченко Владимир
 	Версия: 1.0
-	Дата последней редакции: 22.04.2014
+	Дата последней редакции: 24.09.2014
 */
 
 
@@ -78,10 +78,28 @@ class DataAccess {
 	*/
 
 	private function getCommonFieldType($subFieldType) {
-		$types = array('int' => array('tinyint', 'smallint', 'mediumint', 'int', 'bit', 'bool'),
-						'float' => array('decimal', 'float', 'double', 'real', 'bigint'),
-						'text' => array('char', 'varchar', 'tinytext', 'text', 'mediumtext', 'longtext',
-										'date', 'datetime', 'timestamp', 'time', 'year'));
+		$types = array('int' 	=>	array('tinyint',
+										  'smallint',
+										  'mediumint',
+										  'int',
+										  'bit',
+										  'bool'),
+						'float' =>	array('decimal',
+										  'float',
+										  'double',
+										  'real',
+										  'bigint'),
+						'text'	=>	array('char',
+										  'varchar',
+										  'tinytext',
+										  'text',
+										  'mediumtext',
+										  'longtext',
+										  'date',
+										  'datetime',
+										  'timestamp',
+										  'time',
+										  'year'));
 		$resultType = "other";
 		foreach ($types as $commonType => $subTypes) {
 			foreach ($subTypes as $subType) {
@@ -135,17 +153,25 @@ class DataAccess {
 							$propertyValue = $this->db->real_escape_string(strip_tags(trim($propertyValue)));
 							break;
 					}
-					if ($queryType == 'INSERT') {	// Если запрос на добавление, тогда готовым два массива
-						$fieldsListArray[] = "`".$propertyName."`"; // в одном список полей
-						$valuesListArray[] = $propertyValue; // в другом список значений
-					} else {	// Если запрос на изменение, тогда  готовим один массив
-						$fieldsListArray[] = "`{$propertyName}` = {$propertyValue}"; // Список полей и значений
+					// Если запрос на добавление, тогда готовым два массива
+					if ($queryType == 'INSERT') {
+						// в одном список полей
+						$fieldsListArray[] = "`".$propertyName."`";
+						// в другом список значений
+						$valuesListArray[] = $propertyValue;
+					} else {
+						// Если запрос на изменение, тогда  готовим один массив
+						// Список полей и значений
+						$fieldsListArray[] = "`{$propertyName}` = {$propertyValue}";
 					}
 				}
 			}
 		}
-		// И по тому же алгоритму возвращаем результат
-		if ($queryType == 'INSERT') { // Если запрос на вставку, то многомерный массив 
+		/*	
+			И по тому же алгоритму возвращаем результат
+			Если запрос на вставку, то многомерный массив
+		*/
+		if ($queryType == 'INSERT') {
 			if (!empty($fieldsListArray) && !empty($valuesListArray)) {
 				$params[] = $fieldsListArray; // отдельно поля
 				$params[] = $valuesListArray; // и отдельно значения
@@ -155,7 +181,8 @@ class DataAccess {
 			}
 		} else {
 			if (!empty($fieldsListArray)) {
-				return $fieldsListArray; // иначе одномерный для SET в котором `поле`=значение
+				// иначе одномерный для SET в котором `поле`=значение
+				return $fieldsListArray;
 			} else {
 				return false;
 			}
@@ -215,11 +242,13 @@ class DataAccess {
 
 	public function recordsCount($category) {
 		$count = 0;
-		$query = "SELECT COUNT(`{$this->primaryKey}`) AS `count` FROM `{$this->tableName}`
+		$query = "SELECT COUNT(`{$this->primaryKey}`) AS `count`
+					FROM `{$this->tableName}`
 					WHERE `{$this->tableName}`.`fcategory` = {$category}
 					LIMIT 0, 1";
 		$this->setQueryString($query);
-		$result = $this->db->query($query) or die("Database Error: ".$this->db->error);
+		$result = $this->db->query($query) 
+					or die("Database Error: ".$this->db->error);
 			if ($result->num_rows > 0) {
 				$count = $result->fetch_assoc();
 			}
@@ -230,9 +259,11 @@ class DataAccess {
 	public function selectById($id) {
 		$record = new Record();
 		if (is_numeric($id)) {
-			$query = "SELECT * FROM `".$this->tableName."` WHERE `".$this->primaryKey."`=".$id." LIMIT 0, 1";
+			$query = "SELECT * FROM `{$this->tableName}`
+						WHERE `{$this->primaryKey}`={$id} LIMIT 0, 1";
 			$this->setQueryString($query);
-			$result = $this->db->query($query) or die("Database Error: ".$this->db->error);
+			$result = $this->db->query($query) 
+						or die("Database Error: ".$this->db->error);
 			if ($result->num_rows > 0) {
 				$record = $result->fetch_object("Record");
 			}
@@ -332,11 +363,13 @@ class DataAccess {
 			$fieldsListString = implode(", ", $params[0]);
 			$valuesListString = implode(", ", $params[1]);
 		} else {
-			echo "Ошибка: Нет данных для добавления или несовпадение имен свойств и полей таблицы!<br />";
+			echo "Ошибка: Нет данных для добавления или несовпадение имен "
+				."свойств и полей таблицы!<br />";
 		}
 		
 		if (!empty($fieldsListString) && !empty($valuesListString)) {
-			$query = "INSERT INTO `{$this->tableName}` ({$fieldsListString}) VALUES ({$valuesListString})";
+			$query = "INSERT INTO `{$this->tableName}` ({$fieldsListString})
+							VALUES ({$valuesListString})";
 			return $this->executeSQL($query);
 		}
 	}
@@ -349,12 +382,14 @@ class DataAccess {
 			if (is_array($fieldsList)) {
 				$fieldsListString = implode(", ", $fieldsList);
 			} else {
-				echo "Ошибка: Нет данных или несовпадение имен свойств и полей таблицы!<br />";
+				echo "Ошибка: Нет данных или несовпадение имен свойств и полей "
+					."таблицы!<br />";
 			}
 			
 			if (!empty($fieldsListString)) {
-				$query = "UPDATE `{$this->tableName}` SET {$fieldsListString} 
-											WHERE `{$this->primaryKey}` = {$id}";
+				$query = "UPDATE `{$this->tableName}` 
+							SET {$fieldsListString} 
+							WHERE `{$this->primaryKey}` = {$id}";
 				return $this->executeSQL($query);
 			}
 		} else {
@@ -378,7 +413,9 @@ class DataAccess {
 			}
 		}
 		if (!empty($fieldsAndValuesStr)) {
-			$query = "UPDATE `{$this->tableName}` SET {$fieldsAndValuesStr} WHERE {$condition}";
+			$query = "UPDATE `{$this->tableName}` 
+						SET {$fieldsAndValuesStr} 
+						WHERE {$condition}";
 			return $this->executeSQL($query);
 		}
 	}
@@ -390,7 +427,8 @@ class DataAccess {
 
 	public function deleteById($id) {
 		if (is_numeric($id)) {
-			$query = "DELETE FROM `{$this->tableName}` WHERE `{$this->primaryKey}` = {$id}";
+			$query = "DELETE FROM `{$this->tableName}` 
+						WHERE `{$this->primaryKey}` = {$id}";
 			return $this->executeSQL($query);			
 		} else {
 			return false;

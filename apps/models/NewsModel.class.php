@@ -23,7 +23,7 @@ class NewsModel extends BDatabase {
 			}
 			$offset = ($currentPage - 1) * $this->newsPerPage;
 			$data = null;
-			$q = "SELECT 
+			$q = "SELECT
 						`ogo_news`.`fid`, 
 						`ogo_news`.`ftitle`,
 						`ogo_news`.`fsummary_text`,

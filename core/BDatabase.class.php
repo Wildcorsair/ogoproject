@@ -44,28 +44,6 @@
 			return $data;
 		}
 
-		public function dataGrid($dataSet, $fieldsList) {
-			echo "<table class='gray-table'><thead><tr>";
-			foreach ($fieldsList as $fieldName => $fieldCaption) {
-				echo "<th>".$fieldCaption."</th>";
-			}
-			echo "<th></th><th></th></tr></thead><tbody>";
-			foreach ($dataSet as $record) {
-				echo "<tr>";
-					foreach ($fieldsList as $fieldName => $fieldCaption) {
-						echo "<td>".$record->$fieldName."</td>";
-					}
-				echo "<td class='btn-cont'>
-							<button class='edit' data-value={$record->fid}'></button>
-						</td>
-						<td class='btn-cont'>
-							<button class='delete' data-value={$record->fid}'></button>
-						</td>
-						</tr>";
-			}
-			echo "</tbody></table>";
-		}
-
 		public function emailValidate($email) {
 			//"|^[-0-9a-z_\.]+@[-0-9a-z_^\.]+\.[a-z]{2,6}$|i"
 			if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
