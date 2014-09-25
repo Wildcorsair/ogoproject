@@ -34,7 +34,32 @@ class CpanelModel extends BDatabase {
 
 	public function newsList($currentPage) {
 		try {
-			$cond = array('fcategory' => 2);
+			$cond = '`fcategory` = 1';
+			$this->pageCount = $this->getPageCount("ogo_news", $cond);
+			if ($currentPage <= 0 || $currentPage > $this->pageCount) {
+				throw new Exception ("Error 404! Нет накой страницы!");
+			}
+			$this->currentPage = $currentPage;
+			$this->offset = ($currentPage - 1) * $this->recsPerPage;
+			$q = "SELECT 
+						`fid`,
+						`fcategory`,
+						`ftitle`,
+						`fcreate_date`
+					FROM `ogo_news`
+					WHERE `fcategory` = 1
+					LIMIT :i, :i";
+			$c = array($this->offset, $this->recsPerPage);
+			$dataSet = $this->selectBySql($q, $c);
+			return $dataSet;
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	public function materialsList($currentPage) {
+		try {
+			$cond = '`fcategory` = 2';
 			$this->pageCount = $this->getPageCount("ogo_news", $cond);
 			if ($currentPage <= 0 || $currentPage > $this->pageCount) {
 				throw new Exception ("Error 404! Нет накой страницы!");
@@ -68,8 +93,7 @@ class CpanelModel extends BDatabase {
 	}
 
 	/*
-		$cond = array('fcategory'  => 1,
-					  'fauthor_id' => 15);
+		$cond = string ('`fcategory` = 1 AND `fauthor_id` = 15');
 	*/
 	
 	public function recCountCond($tableName, $cond = null) {
@@ -77,11 +101,8 @@ class CpanelModel extends BDatabase {
 		$condStr = 'WHERE ';
 		$query = "SELECT COUNT(`{$this->primaryKey}`) AS `count`
 					FROM `{$tableName}` ";
-		if (is_array($cond)) {
-			foreach ($cond as $field => $value) {
-				$condStr .= "`{$field}` = '{$value}' ";
-			}
-			$query .= $condStr;
+		if (isset($cond)) {
+			$query .= "WHERE {$cond} ";
 		}
 		$query .= 'LIMIT 0, 1';
 		$result = $this->db->query($query) or die("Database Error: ".$this->db->error);
@@ -92,11 +113,13 @@ class CpanelModel extends BDatabase {
 		return $count['count']; //Returns INTEGER value
 	}
 	
-	public function dataGrid($dataSet, $fieldsList, $route, $colspan) {
+	public function dataGrid($dataSet, $fieldsList, $route, $title, $colspan) {
 		$startRec = $this->offset + 1;
 		$recCount = count($dataSet);
 		$endRec = $this->offset + $recCount;
-		echo "<table class='gray-table'><thead><tr>";
+		echo "<table class='gray-table'><thead>
+				<tr><th colspan='{$colspan}'>{$title}</th></tr>
+				<tr>";
 		foreach ($fieldsList as $fieldName => $fieldCaption) {
 			echo "<th>".$fieldCaption."</th>";
 		}
@@ -104,13 +127,15 @@ class CpanelModel extends BDatabase {
 		foreach ($dataSet as $record) {
 			echo "<tr>";
 				foreach ($fieldsList as $fieldName => $fieldCaption) {
-					echo "<td>".$record->$fieldName."</td>";
+					echo "<td>".htmlspecialchars($record->$fieldName)."</td>";
 				}
 			echo "<td class='btn-cont'>
-						<button class='btn-tb ico-edit' data-value={$record->fid}'></button>
+						<a class='btn-tb ico-edit' 
+							href='/{$route}Edit?id={$record->fid}'></a>
 					</td>
 					<td class='btn-cont'>
-						<button class='btn-tb ico-delete' data-value={$record->fid}'></button>
+						<a class='btn-tb ico-delete'
+							href='/{$route}Delete?id={$record->fid}'></a>
 					</td>
 					</tr>";
 		}

@@ -8,7 +8,7 @@
 							"flogin" => "Логин",
 							"fgroup_name" => "Группа пользователя",
 							"fuserMail" => "Почта");
-			$this->model->dataGrid($dataSet, $fields, "cpanel/users", 7);
+			$this->model->dataGrid($dataSet, $fields, 'cpanel/users', 'Пользователи', 7);
 		} else {
 			echo "No access!";
 		}

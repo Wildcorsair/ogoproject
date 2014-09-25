@@ -34,7 +34,10 @@ class Cpanel extends BController {
 		$this->render("news");
 	}
 
-	public function materials() {
+	public function materials($page) {
+		if (is_numeric($page)) {
+			$this->currentPage = $page;
+		}
 		$this->render("materials");
 	}
 
@@ -45,10 +48,9 @@ class Cpanel extends BController {
 		$this->render("users");
 	}
 
-	public function edit($p) {
-		echo $p;
+	public function usersEdit() {
 		if (isset($_GET['id'])) {
-			echo $_GET['id'];
+			$this->render('usersEdit');
 		}
 	}
 }
