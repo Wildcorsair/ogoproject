@@ -450,6 +450,24 @@ class DataAccess {
 			return $this->executeSQL($query);
 		}
 		return false;
-	}	
+	}
+
+	public function getObjectInheritance($className) {
+		$str = $className;
+		$cls = $className;
+		$meth = array();
+		$meth = get_class_methods($cls);
+		echo '<pre>';
+		var_dump($meth);
+		echo '</pre>';
+		do {
+			$cls = get_parent_class($cls);
+			if ($cls !== false) {
+				$str .= ' -> ';
+				$str .= $cls;
+			}
+		} while ($cls !== false);
+		return $str;
+	}
 } //class End
 ?>
