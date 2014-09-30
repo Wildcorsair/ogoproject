@@ -455,11 +455,11 @@ class DataAccess {
 	public function getObjectInheritance($className) {
 		$str = $className;
 		$cls = $className;
-		$meth = array();
+		/*$meth = array();
 		$meth = get_class_methods($cls);
 		echo '<pre>';
 		var_dump($meth);
-		echo '</pre>';
+		echo '</pre>';*/
 		do {
 			$cls = get_parent_class($cls);
 			if ($cls !== false) {

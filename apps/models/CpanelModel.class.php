@@ -82,6 +82,17 @@ class CpanelModel extends BDatabase {
 		}
 	}
 
+	public function getUserData() {
+		if (isset($_GET['id']) && preg_match('/^\d+$/', $_GET['id'])) {
+			$uid = $_GET['id'];
+			$this->tableName = 'ogo_users';
+			$record = $this->selectById($uid);
+		} else {
+			//$this->showErrorMessage(10);
+		}
+		return $record;
+	}
+
 	public function getPageCount($tableName, $cond) {
 		$pageCount = 1;
 		$recordsCount = $this->recCountCond($tableName, $cond);
