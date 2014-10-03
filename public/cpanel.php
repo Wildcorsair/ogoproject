@@ -20,6 +20,7 @@
 		<link rel="stylesheet" type="text/css" href="http://dbtest.org/UI-Controls/css/controls.css">
 		<script type="text/javascript" src="http://ogo.project.ua/public/js/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript" src="http://ogo.project.ua/public/js/cpanel.js"></script>
+		<script type="text/javascript" src="http://dbtest.org/UI-Controls/js/function.js"></script>
 		<title>
 			ОГО! Лысянка - Панель управления
 		</title>
