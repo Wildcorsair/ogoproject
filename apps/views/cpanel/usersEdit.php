@@ -4,6 +4,7 @@
 <div class="data-block">
     <div class='window-frame large'>
         <div class='caption'>Редактирование данных пользователя</div> 
+        <div class='workspace'>
             <table class='form-controls-grid'>
                 <tr>
                     <td>Имя пользователя</td>
@@ -15,9 +16,6 @@
                                 class='text-field' disabled 
                                 value='<?php echo $dataSet->flogin; ?>'>
                     </td>
-                </tr>
-                <tr>
-
                 </tr>
                 <tr>
                     <td>E-mail адрес</td>
@@ -49,6 +47,7 @@
                     </td>
                 </tr>
             </table>
+        </div>
         <div class='btn-bar'>
             <button class='btn large success'>Сохранить</button>
             <button class='btn normal'>Отмена</button>
