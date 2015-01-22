@@ -128,7 +128,7 @@ class CpanelModel extends BDatabase {
 		$startRec = $this->offset + 1;
 		$recCount = count($dataSet);
 		$endRec = $this->offset + $recCount;
-		echo "<table class='gray-table'><thead>
+		echo "<table class='grey-table'><thead>
 				<tr><th colspan='{$colspan}'>{$title}</th></tr>
 				<tr>";
 		foreach ($fieldsList as $fieldName => $fieldCaption) {
