@@ -144,3 +144,7 @@ a.delete {
 a.delete:hover {
 	background-position: -72px -24px;
 }
+
+.td-width {
+	width: 15px;
+}

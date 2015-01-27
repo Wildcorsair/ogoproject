@@ -17,9 +17,10 @@
 		<meta charset="utf-8">
 		<link type="image/x-icon" rel="shortcut icon" href="/favicon.ico">
 		<link rel="stylesheet" type="text/css" href="http://ogo.project.ua/public/css/cpanel.css">
-		<link rel="stylesheet" type="text/css" href="http://lessons.ua/UI-Controls/css/controls.css">
+		<link rel="stylesheet" type="text/css" href="http://UI-Controls/css/controls.css">
 		<script type="text/javascript" src="http://ogo.project.ua/public/js/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript" src="http://ogo.project.ua/public/js/cpanel.js"></script>
+		<script type="text/javascript" src="http://UI-Controls/js/function.js"></script>
 		<title>
 			ОГО! Лысянка - Панель управления
 		</title>

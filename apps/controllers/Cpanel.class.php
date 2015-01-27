@@ -3,23 +3,6 @@
 class Cpanel extends BController {
 	public $currentPage = 1;
 	public $mainTamplate = "cpanel.php";
-	
-	/*public function render($tamplateName = "index", $nested = false, $common = false) {
-		$this->tamplate = $tamplateName;
-		if ($nested) {
-			if ($common) {
-				$fullPath = ROOT."/apps/views/common".
-						"/".$tamplateName.".php";
-			} else {
-				$fullPath = ROOT."/apps/views/".
-						strtolower($this->controllerClassName).
-						"/".$tamplateName.".php";
-			}
-		} else {
-			$fullPath = ROOT."/apps/views/cpanel/cpanel.php";
-		}
-		include_once($fullPath);
-	}*/
 
 	public function index() {
 		//	Используем "true" вторым параметром функции
@@ -34,7 +17,10 @@ class Cpanel extends BController {
 		$this->render("news");
 	}
 
-	public function materials() {
+	public function materials($page) {
+		if (is_numeric($page)) {
+			$this->currentPage = $page;
+		}
 		$this->render("materials");
 	}
 
@@ -45,10 +31,18 @@ class Cpanel extends BController {
 		$this->render("users");
 	}
 
-	public function edit($p) {
-		echo $p;
+	public function usersEdit() {
 		if (isset($_GET['id'])) {
-			echo $_GET['id'];
+			$this->render('usersEdit');
+		}
+	}
+
+	public function userSave() {
+		if (isset($_POST['usrDataSave'])) {
+			$this->model->userSaveAction();
+			header('Location: /cpanel');
+		} else if (isset($_POST['usrDataCancel'])) {
+			header('Location: /cpanel/users');
 		}
 	}
 }

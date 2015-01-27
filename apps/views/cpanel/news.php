@@ -7,7 +7,7 @@
 							"fcategory" => "Категория",
 							"ftitle" => "Заголовок",
 							"fcreate_date" => "Дата создания");
-			$this->model->dataGrid($dataSet, $fields, "cpanel/news", 6);
+			$this->model->dataGrid($dataSet, $fields, 'cpanel/news', 'Новости', 6);
 		} else {
 			echo "No access!";
 		}

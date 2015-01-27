@@ -27,6 +27,11 @@
 			return $dateParts;
 		}
 
+		public function dateExtract($dateString) {
+			$extractedDate = date('d-m-Y', strtotime($dateString));
+			return $extractedDate;
+		}
+
 		public function getPopLinks($categoryId) {
 			$data = null;
 			$q = "SELECT 

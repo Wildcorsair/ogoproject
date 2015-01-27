@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('#usr').click(function() {
+	/*$('#usr').click(function() {
 		var tc = $('.data-block');
 		$.ajax({
 				//type: "GET",
@@ -16,5 +16,9 @@ $(document).ready(function() {
 
 	$('#usr').ajaxError(function() {
 		alert('Request error!');
-	});
+	});*/
+
+	var tbl = $('table[class="grey-table"]').width();
+	var tblNoBtns = tbl-24*2;
+	alert();
 }); //End of ready
