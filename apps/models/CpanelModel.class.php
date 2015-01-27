@@ -2,7 +2,7 @@
 
 class CpanelModel extends BDatabase {
 	public $primaryKey = 'fid';
-	public $recsPerPage = 2;
+	public $recsPerPage = 5;
 	public $offset = 0;
 	public $currentPage;
 	public $pageCount;
@@ -86,12 +86,51 @@ class CpanelModel extends BDatabase {
 		if (isset($_GET['id']) && preg_match('/^\d+$/', $_GET['id'])) {
 			$uid = $_GET['id'];
 			$this->tableName = 'ogo_users';
-			$record = $this->selectById($uid);
+			$query = 'SELECT `ou`.`fid`,
+							 `flogin`,
+							 `fname`,
+							 `fuserMail`,
+							 `fcreateAccount`,
+							 `fgroup_id`,
+							 `og`.`fgroup_name`
+					  FROM `ogo_users` `ou`
+					  LEFT JOIN `ogo_groups` `og` ON `ou`.`fgroup_id` = `og`.`fid`
+					  WHERE `ou`.`fid` = :i
+					  LIMIT 0, 1';
+			$cond = array($uid);
+			$record = $this->selectBySql($query, $cond);
 		} else {
 			//$this->showErrorMessage(10);
 		}
 		return $record;
 	}
+
+	public function getGroups() {
+		$items = null;
+		$this->tableName ='ogo_groups';
+		$query = "SELECT `fid`, `fgroup_name` FROM `ogo_groups` LIMIT 0, 30";
+        $data = $this->selectBySql($query);
+        if (!empty($data)) {
+            foreach ($data as $value) {
+                $items .= "<li data-value='{$value->fid}'>{$value->fgroup_name}</li>";
+            }
+        }
+        echo $items;
+
+	}
+
+public function userSaveAction() {
+	$this->tableName ='ogo_users';
+	if (isset($_POST['uID']) && is_numeric($_POST['uID'])) {
+		$uID = $_POST['uID'];
+		$this->fname = $_POST['uname'];
+		$this->fuserMail = $_POST['email'];
+		$this->fgroup_id = $_POST['groupId'];
+		$this->updateById($uID);
+	} else {
+		echo 'Nothing';
+	}
+}
 
 	public function getPageCount($tableName, $cond) {
 		$pageCount = 1;

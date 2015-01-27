@@ -36,6 +36,15 @@ class Cpanel extends BController {
 			$this->render('usersEdit');
 		}
 	}
+
+	public function userSave() {
+		if (isset($_POST['usrDataSave'])) {
+			$this->model->userSaveAction();
+			header('Location: /cpanel');
+		} else if (isset($_POST['usrDataCancel'])) {
+			header('Location: /cpanel/users');
+		}
+	}
 }
 
 ?>
