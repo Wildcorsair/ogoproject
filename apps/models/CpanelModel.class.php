@@ -34,7 +34,7 @@ class CpanelModel extends BDatabase {
 
 	public function newsList($currentPage) {
 		try {
-			$cond = array('fcategory' => 2);
+			$cond = array('fcategory' => 1);
 			$this->pageCount = $this->getPageCount("ogo_news", $cond);
 			if ($currentPage <= 0 || $currentPage > $this->pageCount) {
 				throw new Exception ("Error 404! Нет накой страницы!");
@@ -47,7 +47,7 @@ class CpanelModel extends BDatabase {
 						`ftitle`,
 						`fcreate_date`
 					FROM `ogo_news`
-					WHERE `fcategory` = 2
+					WHERE `fcategory` = 1
 					LIMIT :i, :i";
 			$c = array($this->offset, $this->recsPerPage);
 			$dataSet = $this->selectBySql($q, $c);
