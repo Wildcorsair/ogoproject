@@ -37,7 +37,7 @@ class CpanelModel extends BDatabase {
 			$cond = array('fcategory' => 1);
 			$this->pageCount = $this->getPageCount("ogo_news", $cond);
 			if ($currentPage <= 0 || $currentPage > $this->pageCount) {
-				throw new Exception ("Error 404! Нет накой страницы!");
+				throw new Exception ("Error 404! Нет такой страницы!");
 			}
 			$this->currentPage = $currentPage;
 			$this->offset = ($currentPage - 1) * $this->recsPerPage;

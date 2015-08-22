@@ -151,7 +151,7 @@
 		</div>
 	</div>
 	<div id="copyright-block">
-		Copyright &copy; 2014 Golden Eagle Team. All rights reserved.
+		Copyright &copy; 2014 - 2015 Golden Eagle Team. All rights reserved.
 	</div>
 </body>
 </html>
